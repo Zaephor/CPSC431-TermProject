@@ -19,3 +19,10 @@ Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
+
+// Handled by app/Http/Controllers/ApiController.php
+Route::resource('api','ApiController');
+
+Route::get('test',function(){
+    return array('test'=>"What up?");
+});
