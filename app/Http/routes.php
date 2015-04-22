@@ -20,9 +20,39 @@ Route::controllers([
 	'password' => 'Auth\PasswordController',
 ]);
 
-// Handled by app/Http/Controllers/ApiController.php
-Route::resource('api','ApiController');
+Route::post('login','StudentController@debug');
+Route::post('logout','StudentController@debug');
 
-Route::get('test',function(){
-    return array('test'=>"What up?");
+Route::group(['prefix'=>'student'],function(){
+    Route::post('enroll/{session_id}','StudentController@debug');
+    Route::get('grades','StudentController@debug');
+    Route::get('courses','StudentController@debug');
+    Route::group(['prefix'=>'course'],function(){
+        Route::get('{session_id}','StudentController@debug');
+        Route::put('{session_id}/upload','StudentController@debug');
+    });
+});
+
+Route::group(['prefix'=>'faculty'],function(){
+    Route::get('course/{course_id}','StudentController@debug');
+    Route::get('grades/{student_id}','StudentController@debug');
+    Route::get('sessions','StudentController@debug');
+    Route::group(['prefix'=>'session'],function(){
+        Route::put('{session_id}/upload','StudentController@debug');
+        Route::get('{session_id}/assignments','StudentController@debug');
+    });
+});
+
+Route::group(['prefix'=>'admin'],function(){
+    Route::get('courses','StudentController@debug');
+    Route::group(['prefix'=>'course/{course_id}'],function(){
+        Route::get('/','StudentController@debug');
+        Route::put('add','StudentController@debug');
+        Route::delete('delete','StudentController@debug');
+        Route::post('modify','StudentController@debug');
+    });
+    Route::group(['prefix'=>'session/{session_id}'],function(){
+        Route::put('add','StudentController@debug');
+        Route::delete('delete','StudentController@debug');
+    });
 });
