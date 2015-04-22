@@ -16,6 +16,8 @@ class CreateDepartmentsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->timestamps();
+            $table->string('title');
+            $table->string('code',5)->unique();
 		});
 	}
 

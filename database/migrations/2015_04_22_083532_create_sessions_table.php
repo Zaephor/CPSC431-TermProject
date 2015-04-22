@@ -16,6 +16,8 @@ class CreateSessionsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->timestamps();
+            $table->integer('course_id');
+            $table->integer('professor_id');
 		});
 	}
 
