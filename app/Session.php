@@ -13,4 +13,7 @@ class Session extends Model {
     public function professor(){
         return $this->belongsTo('User','professor_id','id');
     }
+    public function assignments(){
+        return $this->hasMany('Assignment');
+    }
 }
