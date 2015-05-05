@@ -1,4 +1,5 @@
 <?php
+$mysqldb = parse_url(getenv("DATABASE_URL"));
 
 return [
 
@@ -54,10 +55,10 @@ return [
 
 		'mysql' => [
 			'driver'    => 'mysql',
-			'host'      => env('DB_HOST', 'localhost'),
-			'database'  => env('DB_DATABASE', 'forge'),
-			'username'  => env('DB_USERNAME', 'forge'),
-			'password'  => env('DB_PASSWORD', ''),
+			'host'      => env('DB_HOST', $mysqldb['host']),
+			'database'  => env('DB_DATABASE', substr($mysqldb["path"], 1)),
+			'username'  => env('DB_USERNAME', $mysqldb['user']),
+			'password'  => env('DB_PASSWORD', $mysqldb['pass']),
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
