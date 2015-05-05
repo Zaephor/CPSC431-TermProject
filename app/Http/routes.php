@@ -13,7 +13,7 @@
 
 Route::get('/', 'WelcomeController@index');
 
-Route::get('home', 'HomeController@index');
+//Route::get('home', 'HomeController@index');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',
@@ -24,9 +24,9 @@ Route::post('login','StudentController@debug');
 Route::post('logout','StudentController@debug');
 
 Route::group(['prefix'=>'student'],function(){
-    Route::post('enroll/{session_id}','StudentController@debug');
     Route::get('grades','StudentController@debug');
     Route::get('courses','StudentController@debug');
+    Route::post('enroll/{session_id}','StudentController@debug');
     Route::group(['prefix'=>'course'],function(){
         Route::get('{session_id}','StudentController@debug');
         Route::put('{session_id}/upload','StudentController@debug');
@@ -38,8 +38,8 @@ Route::group(['prefix'=>'faculty'],function(){
     Route::get('grades/{student_id}','StudentController@debug');
     Route::get('sessions','StudentController@debug');
     Route::group(['prefix'=>'session'],function(){
-        Route::put('{session_id}/upload','StudentController@debug');
         Route::get('{session_id}/assignments','StudentController@debug');
+        Route::put('{session_id}/upload','StudentController@debug');
     });
 });
 
@@ -47,9 +47,9 @@ Route::group(['prefix'=>'admin'],function(){
     Route::get('courses','StudentController@debug');
     Route::group(['prefix'=>'course/{course_id}'],function(){
         Route::get('/','StudentController@debug');
+        Route::post('modify','StudentController@debug');
         Route::put('add','StudentController@debug');
         Route::delete('delete','StudentController@debug');
-        Route::post('modify','StudentController@debug');
     });
     Route::group(['prefix'=>'session/{session_id}'],function(){
         Route::put('add','StudentController@debug');
