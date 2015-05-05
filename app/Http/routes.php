@@ -24,8 +24,8 @@ Route::post('login','TestController@debug');
 Route::post('logout','TestController@debug');
 
 Route::group(['prefix'=>'student'],function(){
-    Route::get('grades','TestController@debug');
-    Route::get('courses','TestController@debug');
+    Route::get('grades','StudentController@getGrades');
+    Route::get('courses','StudentController@getCourses');
     Route::post('enroll/{session_id}','TestController@debug');
     Route::group(['prefix'=>'course'],function(){
         Route::get('{session_id}','TestController@debug');
@@ -34,9 +34,9 @@ Route::group(['prefix'=>'student'],function(){
 });
 
 Route::group(['prefix'=>'faculty'],function(){
-    Route::get('course/{course_id}','TestController@debug');
-    Route::get('grades/{student_id}','TestController@debug');
-    Route::get('sessions','TestController@debug');
+    Route::get('course/{course_id}','FacultyController@getCourse');
+    Route::get('grades/{student_id}','FacultyController@getGrades');
+    Route::get('sessions','FacultyController@getSessions');
     Route::group(['prefix'=>'session'],function(){
         Route::get('{session_id}/assignments','TestController@debug');
         Route::put('{session_id}/upload','TestController@debug');
@@ -44,9 +44,9 @@ Route::group(['prefix'=>'faculty'],function(){
 });
 
 Route::group(['prefix'=>'admin'],function(){
-    Route::get('courses','TestController@debug');
+    Route::get('courses','AdminController@getCourses');
     Route::group(['prefix'=>'course/{course_id}'],function(){
-        Route::get('/','TestController@debug');
+        Route::get('/','AdminController@getCourseInfo');
         Route::post('modify','TestController@debug');
         Route::put('add','TestController@debug');
         Route::delete('delete','TestController@debug');
