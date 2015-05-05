@@ -9,7 +9,7 @@
 namespace App\Http\Controllers;
 use Request;
 
-class StudentController extends Controller {
+class TestController extends Controller {
     public function debug(){
         return array(
             'url'=>Request::url()
