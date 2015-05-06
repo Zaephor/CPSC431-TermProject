@@ -26,7 +26,7 @@ return [
 	|
 	*/
 
-	'url' => 'http://localhost',
+	'url' => 'http://cpsc431.discard.xyz',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -78,7 +78,7 @@ return [
 	|
 	*/
 
-	'key' => env('APP_KEY', 'SomeReallyRandomString'),
+	'key' => env('APP_KEY', 'SomeReallyRandomStringWithBadLen'),
 
 	'cipher' => MCRYPT_RIJNDAEL_128,
 
