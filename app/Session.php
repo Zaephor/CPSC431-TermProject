@@ -16,4 +16,7 @@ class Session extends Model {
     public function assignments(){
         return $this->hasMany('Assignment');
     }
+    public function students(){
+        return $this->belongsToMany('User');
+    }
 }
