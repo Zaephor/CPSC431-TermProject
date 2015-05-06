@@ -16,5 +16,19 @@ class AdminController extends Controller {
     public function getCourseInfo(){
         return array("Courseinfo");
     }
-
+    public function postCourseModify(){
+        return array("postCourseModify");
+    }
+    public function putCourseAdd(){
+        return array("putCourseAdd");
+    }
+    public function deleteCourseDelete(){
+        return array("deleteCourseDelete");
+    }
+    public function putSessionAdd(){
+        return array("putSessionAdd");
+    }
+    public function deleteSessionDelete(){
+        return array("deleteSessionDelete");
+    }
 }

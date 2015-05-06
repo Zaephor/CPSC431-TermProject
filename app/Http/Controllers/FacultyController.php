@@ -19,4 +19,11 @@ class FacultyController extends Controller {
     public function getSessions(){
         return array("Sessions");
     }
+    public function getSessionAssignments(){
+        return array("getSessionAssignments:session_id");
+    }
+    public function postSessionUpload(){
+        return array("postSessionUpload:session_id");
+    }
+
 }

@@ -17,4 +17,13 @@ class StudentController extends Controller {
         return array('Courses');
     }
 
+    public function postEnroll(){
+        return array('Enroll');
+    }
+    public function getCourseSession(){
+        return array('getCourseSession:session_id');
+    }
+    public function postCourseSessionUpload(){
+        return array('postCourseSessionUpload:session_id');
+    }
 }
