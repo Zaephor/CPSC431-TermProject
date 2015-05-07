@@ -12,14 +12,18 @@ use App\User;
 
 class StudentController extends Controller {
     public function getGrades(){
-        $student_id = Input::get('student_id');//TODO Check that this works, probably should come from user session/token
-        $assignments = Assignment::where('student_id','=',$student_id)->get();
-        $status = 404;
-        if(sizeof($assignments) > 0){
-            $status = 200;
-            $assignments->load('session','session.course','session.course.department','session.professor');
+        if (! $user = JWTAuth::parseToken()->authenticate()) {
+            return response()->json(['user_not_found'], 404);
         }
-        return array('status'=>$status,'data'=>$assignments);
+//        $assignments = Assignment::where('student_id','=',$student_id)->get();
+        $sessions = Session::where('assignments.student_id','=',$user->id)->get();
+        $status = 404;
+        if(sizeof($sessions) > 0){
+            $status = 200;
+//            $assignments->load('session','session.course','session.course.department','session.professor');
+            $sessions->load('course','course.department','assignments');
+        }
+        return array('status'=>$status,'data'=>$sessions);
     }
     public function getCourses(){
         $student_id = Input::get('student_id');//TODO Check that this works, probably should come from user session/token

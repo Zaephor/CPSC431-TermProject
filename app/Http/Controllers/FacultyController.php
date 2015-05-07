@@ -37,7 +37,6 @@ class FacultyController extends Controller {
             return response()->json(['user_not_found'], 404);
         }
         $professor_id = $user->id;
-//        $professor_id = Input::get('professor_id');//TODO Check that this works, probably should come from user session/token
         $session = Session::where('professor_id','=',$professor_id)->get();
         $status = 404;
         if (sizeof($session) > 0) {
