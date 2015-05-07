@@ -18,14 +18,13 @@ class StudentController extends Controller {
         if (! $user = JWTAuth::parseToken()->authenticate()) {
             return response()->json(['user_not_found'], 404);
         }
-//        $assignments = Assignment::where('student_id','=',$student_id)->get();
-        $sessions = Session::with('Assignments')->where('student_id',$user->id);
+        $assignments = Assignment::where('student_id','=',$student_id)->get();
         $status = 404;
-        if(sizeof($sessions) > 0){
+        if(sizeof($assignments) > 0){
             $status = 200;
-//            $assignments->load('session','session.course','session.course.department','session.professor','session.assignments');
+            $assignments->load('session','session.course','session.course.department','session.professor','session.assignments');
         }
-        return array('status'=>$status,'data'=>$sessions->assignments());
+        return array('status'=>$status,'data'=>$assignments);
     }
     public function getCourses(){
         $student_id = Input::get('student_id');//TODO Check that this works, probably should come from user session/token
