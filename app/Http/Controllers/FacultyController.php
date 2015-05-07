@@ -35,7 +35,7 @@ class FacultyController extends Controller {
         if (! $user = JWTAuth::parseToken()->authenticate()) {
             return response()->json(['user_not_found'], 404);
         } else {
-            return response()->json($user));
+            return response()->json($user);
         }
         $professor_id = 2;
 //        $professor_id = Input::get('professor_id');//TODO Check that this works, probably should come from user session/token
