@@ -18,7 +18,7 @@ class StudentController extends Controller {
         if (! $user = JWTAuth::parseToken()->authenticate()) {
             return response()->json(['user_not_found'], 404);
         }
-        $assignments = Assignment::where('student_id','=',$student_id)->get();
+        $assignments = Assignment::where('student_id','=',$user->id)->get();
         $status = 404;
         if(sizeof($assignments) > 0){
             $status = 200;
