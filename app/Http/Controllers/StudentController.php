@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use JWTAuth;
 
 class StudentController extends Controller {
     public function getGrades(){
