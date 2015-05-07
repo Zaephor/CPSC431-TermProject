@@ -1,6 +1,13 @@
 <?php
 $mysqldb = parse_url(getenv("DATABASE_URL"));
-
+if(sizeof($mysqldb) == 1 && empty($mysqldb['path'])){
+    $mysqldb = array(
+        'host'=>'localhost', // SQL Server
+        'path'=>'/cpsc473term', // Database prefixed with a '/'
+        'user'=>'user', // SQL user
+        'pass'=>'pass' // SQL pass
+    );
+}
 return [
 
 	/*

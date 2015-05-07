@@ -12,7 +12,7 @@ class SessionUser extends Migration {
 	 */
 	public function up()
 	{
-        Schema::create('session_users', function(Blueprint $table)
+        Schema::create('session_user', function(Blueprint $table)
         {
             $table->integer('session_id')->unsigned()->index();
             $table->integer('user_id')->unsigned()->index();
@@ -29,7 +29,7 @@ class SessionUser extends Migration {
 	 */
 	public function down()
 	{
-        Schema::drop('session_users');
+        Schema::drop('session_user');
 	}
 
 }
