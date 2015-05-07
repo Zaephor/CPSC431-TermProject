@@ -9,26 +9,32 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Course;
 use App\Assignment;
 use App\Session;
 use JWTAuth;
 
 class StudentController extends Controller {
     public function getGrades(){
+        if (! $userAuth = JWTAuth::parseToken()->authenticate()) {
+            return response()->json(['user_not_found'], 404);
+        }
+        $session = Session::with(['assignments'=>function($query){
+            $userAuth = JWTAuth::parseToken()->authenticate();
+            $query->where('student_id', '=', $userAuth->id);
+        }])->get();
+        $status = 404;
+        if(sizeof($session) > 0){
+            $status = 200;
+            $session->load('course','professor');
+        }
+        return array('status'=>$status,'data'=>$session);
+    }
+    public function getCourses(){
         if (! $user = JWTAuth::parseToken()->authenticate()) {
             return response()->json(['user_not_found'], 404);
         }
-        $assignments = Assignment::where('student_id','=',$user->id)->get();
-        $status = 404;
-        if(sizeof($assignments) > 0){
-            $status = 200;
-            $assignments->load('session','session.course','session.course.department','session.professor');
-        }
-        return array('status'=>$status,'data'=>$assignments);
-    }
-    public function getCourses(){
-        $student_id = Input::get('student_id');//TODO Check that this works, probably should come from user session/token
-        $courses = User::find($student_id)->courses(); // I believe this will return the users courses, could be wrong though
+        $courses = User::find($user->id)->courses(); // I believe this will return the users courses, could be wrong though
         $status = 404;
         if(sizeof($courses) > 0){
             $status = 200;

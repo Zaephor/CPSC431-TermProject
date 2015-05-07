@@ -10,6 +10,8 @@ namespace App\Http\Controllers;
 
 
 use App\Course;
+use App\Session;
+use JWTAuth;
 
 class AdminController extends Controller
 {
