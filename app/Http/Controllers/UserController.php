@@ -22,7 +22,11 @@ class UserController extends Controller {
 
         try {
             // attempt to verify the credentials and create a token for the user
-            if (! $token = JWTAuth::attempt($credentials)) {
+            $custom_claim = array();
+            if(Auth::attempt($credentials)){
+                $custom_claim['user'] = Auth::user();
+            }
+            if (! $token = JWTAuth::attempt($credentials,$custom_claim)) {
                 return response()->json(['error' => 'invalid_credentials'], 401);
             }
         } catch (JWTException $e) {
