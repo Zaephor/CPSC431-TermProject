@@ -34,10 +34,8 @@ class FacultyController extends Controller {
     public function getSessions(){
         if (! $user = JWTAuth::parseToken()->authenticate()) {
             return response()->json(['user_not_found'], 404);
-        } else {
-            return response()->json($user);
         }
-        $professor_id = 2;
+        $professor_id = $user->id;
 //        $professor_id = Input::get('professor_id');//TODO Check that this works, probably should come from user session/token
         $session = Session::where('professor_id','=',$professor_id);
         $status = 404;
