@@ -40,7 +40,7 @@ class FacultyController extends Controller {
 //        $professor_id = Input::get('professor_id');//TODO Check that this works, probably should come from user session/token
         $session = Session::where('professor_id','=',$professor_id)->get();
         $status = 404;
-        if (sizeof($session) == 1) {
+        if (sizeof($session) > 0) {
             $status = 200;
             $session->load('course', 'course.department', 'professor', 'assignments', 'students');
         }
