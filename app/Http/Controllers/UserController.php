@@ -6,7 +6,7 @@
  * Time: 6:08 PM
  */
 
-namespace app\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use JWTAuth;
