@@ -25,7 +25,7 @@ class StudentController extends Controller {
             $status = 200;
 //            $assignments->load('session','session.course','session.course.department','session.professor','session.assignments');
         }
-        return array('status'=>$status,'data'=>$sessions->assignments);
+        return array('status'=>$status,'data'=>$sessions->assignments());
     }
     public function getCourses(){
         $student_id = Input::get('student_id');//TODO Check that this works, probably should come from user session/token
