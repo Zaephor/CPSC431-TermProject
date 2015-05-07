@@ -15,15 +15,16 @@ Route::get('/', 'WelcomeController@index');
 
 //Route::get('home', 'HomeController@index');
 
+/*
 Route::controllers([
     'auth' => 'Auth\AuthController',
     'password' => 'Auth\PasswordController',
 ]);
-
+*/
 
 Route::group(['prefix' => 'api'], function () {
     Route::post('register', 'UserController@postRegister');
-    Route::post('login', 'UserController@postLogin'); //TODO: Actually test this...? Not actually sure if this works
+    Route::post('login', 'UserController@postLogin'); //O.o This actually works, returns JWT token containing user object and other JWT claims
     Route::post('logout', 'UserController@postLogout');
 
     Route::group(['prefix' => 'student'], function () {
