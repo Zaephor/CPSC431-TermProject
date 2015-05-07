@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Session;
 use JWTAuth;
 
 class StudentController extends Controller {
@@ -38,7 +39,10 @@ class StudentController extends Controller {
     }
 
     public function postEnroll($session_id){
-        $user = User::find($student_id); // Get student ID from user token or session
+        if (! $userAuth = JWTAuth::parseToken()->authenticate()) {
+            return response()->json(['user_not_found'], 404);
+        }
+        $user = User::find($userAuth->id); // Get student ID from user token or session
         $user->sessions()->attach($session_id);
         $status = 200;
         return array('status'=>$status,'data'=>$courses);
