@@ -23,7 +23,7 @@ Route::controllers([
 
 Route::group(['prefix' => 'api'], function () {
     Route::post('register', 'UserController@postRegister');
-    Route::post('login', 'UserController@postLogin');
+    Route::post('login', 'UserController@postLogin'); //TODO: Actually test this...? Not actually sure if this works
     Route::post('logout', 'UserController@postLogout');
 
     Route::group(['prefix' => 'student'], function () {

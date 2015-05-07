@@ -36,7 +36,7 @@ class DatabaseSeeder extends Seeder
             $student[] = User::create([
                 'name' => 'Test Student' . $i,
                 'email' => 'student' . $i . '@test.com',
-                'password' => 'test',
+                'password' => Hash::make('test'),
                 'role' => 'student'
             ]);
         }
@@ -45,7 +45,7 @@ class DatabaseSeeder extends Seeder
             $professor[] = User::create([
                 'name' => 'Test Professor' . $i,
                 'email' => 'professor' . $i . '@test.com',
-                'password' => 'test',
+                'password' => Hash::make('test'),
                 'role' => 'faculty'
             ]);
         }
@@ -54,7 +54,7 @@ class DatabaseSeeder extends Seeder
             $admin[] = User::create([
                 'name' => 'Test Admin'.$i,
                 'email' => 'admin'.$i.'@test.com',
-                'password' => 'test',
+                'password' => Hash::make('test'),
                 'role' => 'admin'
             ]);
         }
