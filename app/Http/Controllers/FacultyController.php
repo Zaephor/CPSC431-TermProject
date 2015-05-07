@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 use App\Assignment;
+use JWTAuth;
 
 class FacultyController extends Controller {
     public function getCourse($course_id){
