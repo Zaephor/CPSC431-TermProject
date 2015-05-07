@@ -26,7 +26,7 @@ class FacultyController extends Controller {
         $status = 404;
         if(sizeof($assignments) > 0){
             $status = 200;
-            $assignments->load('session','session.course','session.professor');
+            $assignments->load('session','session.course','session.course.department','session.professor');
         }
         return array('status'=>$status,'data'=>$assignments);
     }
