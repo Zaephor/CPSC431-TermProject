@@ -8,10 +8,10 @@ class Course extends Model {
     protected $fillable = ['department_id','title','description','code','unitval'];
 
     public function department(){
-        return $this->belongsTo('Department');
+        return $this->belongsTo('App\Department');
     }
 
     public function sessions(){
-        return $this->hasMany('Session');
+        return $this->hasMany('App\Session');
     }
 }

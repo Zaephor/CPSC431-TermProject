@@ -8,6 +8,6 @@ class Department extends Model {
     protected $fillable = ['title','code'];
 
     public function courses(){
-        return $this->hasMany('Course');
+        return $this->hasMany('App\Course');
     }
 }

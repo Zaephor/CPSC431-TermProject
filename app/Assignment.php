@@ -8,10 +8,10 @@ class Assignment extends Model {
     protected $fillable = ['session_id','student_id','assignment_code','score'];
 
     public function session(){
-        return $this->belongsTo('Session');
+        return $this->belongsTo('App\Session');
     }
 
     public function students(){
-        return $this->belongsTo('User','student_id','id');
+        return $this->belongsTo('App\User','student_id','id');
     }
 }

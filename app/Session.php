@@ -5,18 +5,18 @@ use Illuminate\Database\Eloquent\Model;
 class Session extends Model {
 
     protected $table = 'sessions';
-    protected $fillable = ['course_id','professor_id'];
+    protected $fillable = ['course_id','professor_id','begins_on','ends_on'];
 
     public function course(){
-        return $this->belongsTo('Course');
+        return $this->belongsTo('App\Course');
     }
     public function professor(){
-        return $this->belongsTo('User','professor_id','id');
+        return $this->belongsTo('App\User','professor_id','id');
     }
     public function assignments(){
-        return $this->hasMany('Assignment');
+        return $this->hasMany('App\Assignment');
     }
     public function students(){
-        return $this->belongsToMany('User');
+        return $this->belongsToMany('App\User')->withTimestamps();
     }
 }

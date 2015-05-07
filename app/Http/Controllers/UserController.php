@@ -10,6 +10,9 @@ namespace app\Http\Controllers;
 
 
 class UserController extends Controller {
+    public function postRegister(){
+        return array("Register");
+    }
     public function postLogin(){
         return array("Login");
     }
