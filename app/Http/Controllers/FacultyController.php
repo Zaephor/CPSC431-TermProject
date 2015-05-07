@@ -9,6 +9,7 @@
 namespace App\Http\Controllers;
 
 use App\Assignment;
+use App\Session;
 use JWTAuth;
 
 class FacultyController extends Controller {
