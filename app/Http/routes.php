@@ -30,7 +30,7 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('sessions', 'StudentController@getSessions');//Return all user's enrolled sessions(grouped by course)
         Route::get('sessions/all', 'AdminController@getSessions');//Just use admin's get all function
         Route::group(['prefix' => 'session'], function () {
-            Route::get('{session_id}', 'StudentController@getSpecificSession'); //TODO Decide if really needed?
+            Route::get('{session_id}', 'StudentController@getSpecificSession'); //Return session object matching that id
             Route::get('{session_id}/assignments','StudentController@getSessionAssignments'); //TODO get all specified session's assignments
 //            Route::put('{session_id}/upload', 'StudentController@postCourseSessionUpload'); //TODO? IS this really needed?
         });
