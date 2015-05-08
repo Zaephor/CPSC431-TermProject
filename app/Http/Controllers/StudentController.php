@@ -71,11 +71,22 @@ class StudentController extends Controller
             }])->get();
         }])->get();
         $status = 404;
+        $rearrange = array();
         if (sizeof($courses) > 0) {
             $status = 200;
-            $courses->load('department', 'sessions');
+            $courses->load('department');
+            $rearrange = $courses;
+            foreach($rearrange as $i=>$course){
+                foreach($course->sessions as $j=>$session){
+                    if(sizeof($session->students) == 0){
+                        unset($rearrange[$i]->sessions[$j]);
+                    } else {
+                        unset($rearrange[$i]->sessions[$j]->students);
+                    }
+                }
+            }
         }
-        return array('status' => $status, 'data' => $courses);
+        return array('status' => $status, 'data' => $rearrange);
     }
     public function getSessionAssignments($session_id){
 
