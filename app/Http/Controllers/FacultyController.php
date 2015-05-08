@@ -14,7 +14,7 @@ use App\Session;
 use JWTAuth;
 
 class FacultyController extends Controller {
-    public function getCourse($course_id){
+    public function getCourseInfo($course_id){
         if (! $userAuth = JWTAuth::parseToken()->authenticate()) {
             return response()->json(['user_not_found'], 404);
         }

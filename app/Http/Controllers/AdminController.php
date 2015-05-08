@@ -37,11 +37,6 @@ class AdminController extends Controller
         return array('status' => $status, 'data' => $course);
     }
 
-    public function postCourseModify($course_id)
-    {
-        return array("postCourseModify");
-    }
-
     public function putCourseAdd()
     {
         $course = Course::create([
@@ -71,6 +66,15 @@ class AdminController extends Controller
         return array('status' => $status);
     }
 
+    public function getSessions(){
+        $courses = Course::all();
+        $status = 404;
+        if (sizeof($courses) > 0) {
+            $status = 200;
+            $courses->load('department','sessions');
+        }
+        return array('status' => $status, 'data' => $courses);
+    }
     public function putSessionAdd()
     {
         $session = Session::create([
@@ -99,11 +103,6 @@ class AdminController extends Controller
         return array('status' => $status, 'data' => $session);
     }
 
-    public function postSessionModify($session_id)
-    {
-        return array("postSessionModify");
-    }
-
     public function deleteSessionDelete($session_id)
     {
         $session = Session::find($session_id);
@@ -114,4 +113,15 @@ class AdminController extends Controller
         }
         return array('status' => $status);
     }
+
+    public function postCourseModify($course_id)
+    {
+        return array("postCourseModify");
+    }
+
+    public function postSessionModify($session_id)
+    {
+        return array("postSessionModify");
+    }
+
 }
