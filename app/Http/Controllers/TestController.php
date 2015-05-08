@@ -7,12 +7,15 @@
  */
 
 namespace App\Http\Controllers;
+
 use Request;
 
-class TestController extends Controller {
-    public function debug(){
+class TestController extends Controller
+{
+    public function debug()
+    {
         return array(
-            'url'=>Request::url()
-            );
+            'url' => Request::url()
+        );
     }
 }

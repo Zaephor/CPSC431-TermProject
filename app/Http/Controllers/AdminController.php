@@ -66,15 +66,17 @@ class AdminController extends Controller
         return array('status' => $status);
     }
 
-    public function getSessions(){
+    public function getSessions()
+    {
         $courses = Course::all();
         $status = 404;
         if (sizeof($courses) > 0) {
             $status = 200;
-            $courses->load('department','sessions');
+            $courses->load('department', 'sessions');
         }
         return array('status' => $status, 'data' => $courses);
     }
+
     public function putSessionAdd()
     {
         $session = Session::create([

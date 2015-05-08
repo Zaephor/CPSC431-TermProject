@@ -31,30 +31,30 @@ Route::group(['prefix' => 'api'], function () {
         Route::post('enroll/{session_id}', 'StudentController@postEnroll'); //TODO[TEST] Enroll student in course session
 
         Route::get('courses', 'StudentController@getCourses'); //Return all user's courses
-        Route::get('courses/all','TestController@debug');//TODO return all courses in system
+        Route::get('courses/all', 'TestController@debug');//TODO return all courses in system
         Route::group(['prefix' => 'course'], function () {
             Route::get('{course_id}', 'StudentController@getCourseSessions'); //Return full course->session object
         });
 
-        Route::get('sessions','TestController@debug');//TODO return all user's enrolled sessions
-        Route::get('sessions/all','TestController@debug');//TODO get all available sessions(grouped by course)
+        Route::get('sessions', 'TestController@debug');//TODO return all user's enrolled sessions
+        Route::get('sessions/all', 'TestController@debug');//TODO get all available sessions(grouped by course)
         Route::group(['prefix' => 'session'], function () {
-            Route::get('{session_id}','TestController@debug'); //TODO Decide if really needed?
+            Route::get('{session_id}', 'TestController@debug'); //TODO Decide if really needed?
 //            Route::put('{session_id}/upload', 'StudentController@postCourseSessionUpload'); //TODO? IS this really needed?
         });
 
         Route::get('assignments', 'StudentController@getAssignments'); //Get all student's grades, for all sessions, for all courses
-        Route::group(['prefix'=>'assignment'],function(){
-            Route::post('{assignment_id}','StudentController@displayAssignment'); //TODO view single assignment
-            Route::put('{assignment_id}/upload','TestController@debug'); // TODO Write upload and storage logic
+        Route::group(['prefix' => 'assignment'], function () {
+            Route::post('{assignment_id}', 'StudentController@displayAssignment'); //TODO view single assignment
+            Route::put('{assignment_id}/upload', 'TestController@debug'); // TODO Write upload and storage logic
         });
     });
 
     Route::group(['prefix' => 'faculty'], function () {
         Route::get('grades/{student_id}', 'FacultyController@getGrades'); //Returns all grades for a given student,professor pair
 
-        Route::get('courses','FacultyController@getCourses'); //TODO Return all courses tied to this prof
-        Route::get('courses/all','TestController@debug');//TODO return all courses in system
+        Route::get('courses', 'FacultyController@getCourses'); //TODO Return all courses tied to this prof
+        Route::get('courses/all', 'TestController@debug');//TODO return all courses in system
         Route::group(['prefix' => 'course'], function () {
             Route::get('{course_id}', 'FacultyController@getCourseInfo'); //Returns course object of specific course with sessions
         });
@@ -66,11 +66,11 @@ Route::group(['prefix' => 'api'], function () {
         });
 
 //        Route::get();//TODO returns course objects, containing sessions, which will contain all assignments? still thinking
-        Route::group(['prefix'=>'assignment'],function(){
-            Route::get('{assignment_id}','TestController@debug');//TODO Display assignment object
-            Route::post('add','TestController@debug');//TODO Create an assignment for a class, assume sessionID in post data
-            Route::put('{assignment_id}/modify','TestController@debug');//TODO Update assignment object(IE set grade)
-            Route::delete('{assignment_id}/delete','TestController@debug');//TODO Delete the assignment
+        Route::group(['prefix' => 'assignment'], function () {
+            Route::get('{assignment_id}', 'TestController@debug');//TODO Display assignment object
+            Route::post('add', 'TestController@debug');//TODO Create an assignment for a class, assume sessionID in post data
+            Route::put('{assignment_id}/modify', 'TestController@debug');//TODO Update assignment object(IE set grade)
+            Route::delete('{assignment_id}/delete', 'TestController@debug');//TODO Delete the assignment
         });
     });
 
@@ -82,7 +82,7 @@ Route::group(['prefix' => 'api'], function () {
             Route::post('{course_id}/modify', 'AdminController@postCourseModify'); //TODO
             Route::delete('{course_id}/delete', 'AdminController@deleteCourseDelete'); //Deletes specific match
         });
-        Route::get('sessions','AdminController@getSessions'); //Returns all sessions, grouped by course
+        Route::get('sessions', 'AdminController@getSessions'); //Returns all sessions, grouped by course
         Route::group(['prefix' => 'session'], function () {
             Route::get('{session_id}', 'AdminController@getSessionInfo'); //Returns matching session object, with all relevant data
             Route::put('add', 'AdminController@putSessionAdd'); //Create new course session, return status response and data object

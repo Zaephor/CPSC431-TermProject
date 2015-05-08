@@ -14,61 +14,71 @@ use App\Assignment;
 use App\Session;
 use JWTAuth;
 
-class StudentController extends Controller {
-    public function postEnroll($session_id){
-        if (! $userAuth = JWTAuth::parseToken()->authenticate()) {
+class StudentController extends Controller
+{
+    public function postEnroll($session_id)
+    {
+        if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
             return response()->json(['user_not_found'], 404);
         }
         $user = User::find($userAuth->id); // Get student ID from user token or session
         $user->sessions()->attach($session_id);
         $status = 200;
-        return array('status'=>$status);
+        return array('status' => $status);
     }
-    public function getCourses(){
-        if (! $userAuth = JWTAuth::parseToken()->authenticate()) {
+
+    public function getCourses()
+    {
+        if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
             return response()->json(['user_not_found'], 404);
         }
         $user = User::find($userAuth->id);
         $status = 404;
-        if(sizeof($user) > 0){
+        if (sizeof($user) > 0) {
             $status = 200;
-            $user->load('sessions','sessions.course');
+            $user->load('sessions', 'sessions.course');
         }
         $rearrange = array();
-        foreach($user['sessions'] as $value){
+        foreach ($user['sessions'] as $value) {
             $temp = $value['course'];
             $rearrange[] = $temp;
         }
-        return array('status'=>$status,'data'=>$rearrange);
+        return array('status' => $status, 'data' => $rearrange);
     }
-    public function getCourseSessions($course_id){
-        if (! $userAuth = JWTAuth::parseToken()->authenticate()) {
+
+    public function getCourseSessions($course_id)
+    {
+        if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
             return response()->json(['user_not_found'], 404);
         }
         $course = Course::find($course_id);
         $status = 404;
-        if(sizeof($course) > 0){
+        if (sizeof($course) > 0) {
             $status = 200;
-            $course->load('sessions','sessions.course');
+            $course->load('sessions', 'sessions.course');
         }
-        return array('status'=>$status,'data'=>$course);
+        return array('status' => $status, 'data' => $course);
     }
-    public function postCourseSessionUpload(){
+
+    public function postCourseSessionUpload()
+    {
         return array('postCourseSessionUpload:session_id');
     }
-    public function getAssignments(){
-        if (! $userAuth = JWTAuth::parseToken()->authenticate()) {
+
+    public function getAssignments()
+    {
+        if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
             return response()->json(['user_not_found'], 404);
         }
-        $session = Session::with(['assignments'=>function($query){
+        $session = Session::with(['assignments' => function ($query) {
             $userAuth = JWTAuth::parseToken()->authenticate();
             $query->where('student_id', '=', $userAuth->id);
         }])->get();
         $status = 404;
-        if(sizeof($session) > 0){
+        if (sizeof($session) > 0) {
             $status = 200;
-            $session->load('course','professor');
+            $session->load('course', 'professor');
         }
-        return array('status'=>$status,'data'=>$session);
+        return array('status' => $status, 'data' => $session);
     }
 }

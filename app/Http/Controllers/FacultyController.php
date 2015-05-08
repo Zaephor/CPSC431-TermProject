@@ -13,9 +13,11 @@ use App\Assignment;
 use App\Session;
 use JWTAuth;
 
-class FacultyController extends Controller {
-    public function getCourseInfo($course_id){
-        if (! $userAuth = JWTAuth::parseToken()->authenticate()) {
+class FacultyController extends Controller
+{
+    public function getCourseInfo($course_id)
+    {
+        if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
             return response()->json(['user_not_found'], 404);
         }
         $course = Course::find($course_id);
@@ -26,30 +28,34 @@ class FacultyController extends Controller {
         }
         return array('status' => $status, 'data' => $course);
     }
-    public function getGrades($student_id){
-        if (! $userAuth = JWTAuth::parseToken()->authenticate()) {
+
+    public function getGrades($student_id)
+    {
+        if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
             return response()->json(['user_not_found'], 404);
         }
         // Alternate ideas: $assignments = Assignment::has('students.id','=',$student_id)->get();
-        $assignments = Assignment::where('student_id','=',$student_id)->get();
+        $assignments = Assignment::where('student_id', '=', $student_id)->get();
         $status = 404;
-        if(sizeof($assignments) > 0){
+        if (sizeof($assignments) > 0) {
             $status = 200;
-            $assignments->load('session','session.course','session.course.department','session.professor');
+            $assignments->load('session', 'session.course', 'session.course.department', 'session.professor');
         }
         $responseData = array();
-        foreach($assignments as $entry){
-            if($entry->session->professor_id == $userAuth->id){
+        foreach ($assignments as $entry) {
+            if ($entry->session->professor_id == $userAuth->id) {
                 $responseData[] = $entry;
             }
         }
-        return array('status'=>$status,'data'=>$responseData);
+        return array('status' => $status, 'data' => $responseData);
     }
-    public function getSessions(){
-        if (! $user = JWTAuth::parseToken()->authenticate()) {
+
+    public function getSessions()
+    {
+        if (!$user = JWTAuth::parseToken()->authenticate()) {
             return response()->json(['user_not_found'], 404);
         }
-        $course = Course::with(['sessions',function($query){
+        $course = Course::with(['sessions', function ($query) {
             $userAuth = JWTAuth::parseToken()->authenticate();
             $query->where('professor_id', '=', $userAuth->id);
         }])->get();
@@ -58,14 +64,18 @@ class FacultyController extends Controller {
         if (sizeof($course) > 0) {
             $status = 200;
 //            $session->load('course', 'course.department', 'professor', 'assignments', 'students');
-            $course->load('department','sessions');
+            $course->load('department', 'sessions');
         }
         return array('status' => $status, 'data' => $course);
     }
-    public function getSessionAssignments(){
+
+    public function getSessionAssignments()
+    {
         return array("getSessionAssignments:session_id");
     }
-    public function postSessionUpload(){
+
+    public function postSessionUpload()
+    {
         return array("postSessionUpload:session_id");
     }
 
