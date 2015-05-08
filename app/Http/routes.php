@@ -38,7 +38,7 @@ Route::group(['prefix' => 'api'], function () {
     });
 
     Route::group(['prefix' => 'faculty'], function () {
-        Route::get('course/{course_id}', 'FacultyController@getCourse'); //Returns course object of specific course[Duplicate of Admin Version]
+        Route::get('course/{course_id}', 'FacultyController@getCourse'); //Returns course object of specific course with sessions
         Route::get('grades/{student_id}', 'FacultyController@getGrades'); //Returns all grades for a given student
         Route::get('sessions', 'FacultyController@getSessions'); //TODO[FINISH] Returns all sessions professor is responsible for
         Route::group(['prefix' => 'session'], function () {
