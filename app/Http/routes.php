@@ -30,7 +30,7 @@ Route::group(['prefix' => 'api'], function () {
     Route::group(['prefix' => 'student'], function () {
         Route::get('grades', 'StudentController@getGrades'); //Get all student's grades, for all sessions, for all courses
         Route::get('courses', 'StudentController@getCourses'); //Get all student's courses
-        Route::post('enroll/{session_id}', 'StudentController@postEnroll'); //TODO[GRABUSERIDFROMTOKEN] Enroll student in course session
+        Route::post('enroll/{session_id}', 'StudentController@postEnroll'); //TODO[TEST] Enroll student in course session
         Route::group(['prefix' => 'course'], function () {
             Route::get('{session_id}', 'StudentController@getCourseSession');
             Route::put('{session_id}/upload', 'StudentController@postCourseSessionUpload');
