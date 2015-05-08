@@ -66,7 +66,12 @@ class StudentController extends Controller
         if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
             return response()->json(['user_not_found'], 404);
         }
-        $courses = Course::all();
+        $courses = Course::with(['sessions'=>function($query){
+            $query->with(['students'=>function($subQuery){
+                $userAuth = JWTAuth::parseToken()->authenticate();
+                $subQuery->where('student_id','=',$userAuth->id);
+            }])->get();
+        }])->get();
         $status = 404;
         if (sizeof($courses) > 0) {
             $status = 200;
@@ -74,8 +79,9 @@ class StudentController extends Controller
         }
         return array('status' => $status, 'data' => $courses);
     }
-    public function getAllSessions(){}
-    public function getSessionAssignments($session_id){}
+    public function getSessionAssignments($session_id){
+
+    }
 
     // IS THIS NEEDED?
     public function postCourseSessionUpload()
@@ -95,7 +101,7 @@ class StudentController extends Controller
         $status = 404;
         if (sizeof($session) > 0) {
             $status = 200;
-            $session->load('course', 'professor');
+            $session->load('course','course.department', 'professor');
         }
         return array('status' => $status, 'data' => $session);
     }
