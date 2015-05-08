@@ -55,7 +55,7 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('sessions/all', 'AdminController@getSessions'); //Just use admin's get all function
         Route::group(['prefix' => 'session'], function () {
             Route::get('{session_id}','StudentController@getSpecificSession'); // Stolen from students
-            Route::get('{session_id}/assignments', 'FacultyController@getSessionAssignments');//TODO get all assignments for this session
+            Route::get('{session_id}/assignments', 'FacultyController@getSessionAssignments');//TODO get all assignments for this session ??MAYBE?
             Route::get('{session_id}/students','FacultyController@getSessionStudents'); // Should return the session object with a students subobject
         });
 
