@@ -95,7 +95,7 @@ class AdminController extends Controller
         $status = 404;
         if (sizeof($courses) > 0) {
             $status = 200;
-            $courses->load('department', 'sessions','professor');
+            $courses->load('department', 'sessions','sessions.professor');
         }
         return array('status' => $status, 'data' => $courses);
     }

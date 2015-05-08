@@ -54,9 +54,9 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('sessions', 'FacultyController@getSessions'); //Returns all sessions professor is responsible for
         Route::get('sessions/all', 'AdminController@getSessions'); //Just use admin's get all function
         Route::group(['prefix' => 'session'], function () {
-            Route::get('{session_id}','StudentController@getSpecificSession');
+            Route::get('{session_id}','StudentController@getSpecificSession'); // Stolen from students
             Route::get('{session_id}/assignments', 'FacultyController@getSessionAssignments');//TODO get all assignments for this session
-            Route::get('{session_id}/students','');
+            Route::get('{session_id}/students','FacultyController@getSessionStudents');
         });
 
 //        Route::get();//TODO returns course objects, containing sessions, which will contain all assignments? still thinking
