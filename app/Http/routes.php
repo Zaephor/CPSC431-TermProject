@@ -21,16 +21,16 @@ Route::group(['prefix' => 'api'], function () {
     Route::group(['prefix' => 'student'], function () {
         Route::post('enroll/{session_id}', 'StudentController@postEnroll'); //TODO[TEST] Enroll student in course session
 
-        Route::get('courses', 'StudentController@getCourses'); //Return all user's courses and session subobjects
+        Route::get('courses', 'StudentController@getSessions'); //Return all user's courses and session subobjects
         Route::get('courses/all', 'AdminController@getCourses');//Just use Admin's get all courses function
         Route::group(['prefix' => 'course'], function () {
             Route::get('{course_id}', 'StudentController@getCourseSessions'); //Return full course->session object for specific course
         });
 
-        Route::get('sessions', 'StudentController@getSessions');//TODO return all user's enrolled sessions(grouped by course)
+        Route::get('sessions', 'StudentController@getSessions');//Return all user's enrolled sessions(grouped by course)
         Route::get('sessions/all', 'AdminController@getSessions');//Just use admin's get all function
         Route::group(['prefix' => 'session'], function () {
-            Route::get('{session_id}', 'TestController@debug'); //TODO Decide if really needed?
+            Route::get('{session_id}', 'StudentController@getSpecificSession'); //TODO Decide if really needed?
             Route::get('{session_id}/assignments','StudentController@getSessionAssignments'); //TODO get all specified session's assignments
 //            Route::put('{session_id}/upload', 'StudentController@postCourseSessionUpload'); //TODO? IS this really needed?
         });

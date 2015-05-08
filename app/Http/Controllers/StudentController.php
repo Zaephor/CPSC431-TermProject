@@ -76,12 +76,16 @@ class StudentController extends Controller
             $status = 200;
             $courses->load('department');
             $rearrange = $courses;
-            foreach($rearrange as $i=>$course){
-                foreach($course->sessions as $j=>$session){
-                    if(sizeof($session->students) == 0){
-                        unset($rearrange[$i]->sessions[$j]);
-                    } else {
-                        unset($rearrange[$i]->sessions[$j]->students);
+            foreach($courses as $i=>$course){
+                if(sizeof($course->sessions) == 0) {
+                    unset($rearrange[$i]);
+                } else {
+                    foreach ($course->sessions as $j => $session) {
+                        if (sizeof($session->students) == 0) {
+                            unset($rearrange[$i]->sessions[$j]);
+                        } else {
+                            unset($rearrange[$i]->sessions[$j]->students);
+                        }
                     }
                 }
             }
@@ -89,9 +93,25 @@ class StudentController extends Controller
         return array('status' => $status, 'data' => $rearrange);
     }
     public function getSessionAssignments($session_id){
-
+        if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
+            return response()->json(['user_not_found'], 404);
+        }
+        $assignments = Assignment::where('session_id','=',$session_id)->get();
+        //TODO
     }
 
+    public function getSpecificSession($session_id){
+        if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
+            return response()->json(['user_not_found'], 404);
+        }
+        $session = Session::find($session_id);
+        $status = 404;
+        if (sizeof($session) > 0) {
+            $status = 200;
+            $session->load('course','course.department', 'professor');
+        }
+        return array('status' => $status, 'data' => $session);
+    }
     // IS THIS NEEDED?
     public function postCourseSessionUpload()
     {
