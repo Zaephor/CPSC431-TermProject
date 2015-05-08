@@ -15,20 +15,14 @@ use App\Session;
 use JWTAuth;
 
 class StudentController extends Controller {
-    public function getGrades(){
+    public function postEnroll($session_id){
         if (! $userAuth = JWTAuth::parseToken()->authenticate()) {
             return response()->json(['user_not_found'], 404);
         }
-        $session = Session::with(['assignments'=>function($query){
-            $userAuth = JWTAuth::parseToken()->authenticate();
-            $query->where('student_id', '=', $userAuth->id);
-        }])->get();
-        $status = 404;
-        if(sizeof($session) > 0){
-            $status = 200;
-            $session->load('course','professor');
-        }
-        return array('status'=>$status,'data'=>$session);
+        $user = User::find($userAuth->id); // Get student ID from user token or session
+        $user->sessions()->attach($session_id);
+        $status = 200;
+        return array('status'=>$status);
     }
     public function getCourses(){
         if (! $userAuth = JWTAuth::parseToken()->authenticate()) {
@@ -47,16 +41,6 @@ class StudentController extends Controller {
         }
         return array('status'=>$status,'data'=>$rearrange);
     }
-
-    public function postEnroll($session_id){
-        if (! $userAuth = JWTAuth::parseToken()->authenticate()) {
-            return response()->json(['user_not_found'], 404);
-        }
-        $user = User::find($userAuth->id); // Get student ID from user token or session
-        $user->sessions()->attach($session_id);
-        $status = 200;
-        return array('status'=>$status);
-    }
     public function getCourseSessions($course_id){
         if (! $userAuth = JWTAuth::parseToken()->authenticate()) {
             return response()->json(['user_not_found'], 404);
@@ -71,5 +55,20 @@ class StudentController extends Controller {
     }
     public function postCourseSessionUpload(){
         return array('postCourseSessionUpload:session_id');
+    }
+    public function getAssignments(){
+        if (! $userAuth = JWTAuth::parseToken()->authenticate()) {
+            return response()->json(['user_not_found'], 404);
+        }
+        $session = Session::with(['assignments'=>function($query){
+            $userAuth = JWTAuth::parseToken()->authenticate();
+            $query->where('student_id', '=', $userAuth->id);
+        }])->get();
+        $status = 404;
+        if(sizeof($session) > 0){
+            $status = 200;
+            $session->load('course','professor');
+        }
+        return array('status'=>$status,'data'=>$session);
     }
 }
