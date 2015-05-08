@@ -46,6 +46,8 @@ class StudentController extends Controller
         return array('status' => $status, 'data' => $rearrange);
     }
 
+    public function getAllCourses(){}
+
     public function getCourseSessions($course_id)
     {
         if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
@@ -60,6 +62,11 @@ class StudentController extends Controller
         return array('status' => $status, 'data' => $course);
     }
 
+    public function getSessions(){}
+    public function getAllSessions(){}
+    public function getSessionAssignments($session_id){}
+
+    // IS THIS NEEDED?
     public function postCourseSessionUpload()
     {
         return array('postCourseSessionUpload:session_id');
@@ -81,4 +88,7 @@ class StudentController extends Controller
         }
         return array('status' => $status, 'data' => $session);
     }
+
+    public function displayAssignment($assignment_id){}
+    public function putAssignment($assignment_id){}
 }

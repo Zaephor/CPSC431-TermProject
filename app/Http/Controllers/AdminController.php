@@ -55,6 +55,11 @@ class AdminController extends Controller
         return array('status' => $status, 'data' => $course);
     }
 
+    public function postCourseModify($course_id)
+    {
+        return array("postCourseModify");
+    }
+
     public function deleteCourseDelete($course_id)
     {
         $course = Course::find($course_id);
@@ -116,10 +121,6 @@ class AdminController extends Controller
         return array('status' => $status);
     }
 
-    public function postCourseModify($course_id)
-    {
-        return array("postCourseModify");
-    }
 
     public function postSessionModify($session_id)
     {
