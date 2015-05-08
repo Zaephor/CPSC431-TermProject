@@ -34,9 +34,6 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function sessions(){
         return $this->belongsToMany('App\Session')->withTimestamps();
     }
-    public function courses(){
-        return $this->hasManyThrough('App\Course','App\Session');
-    }
     public function assignments(){
         return $this->hasMany('App\Assignment');
     }

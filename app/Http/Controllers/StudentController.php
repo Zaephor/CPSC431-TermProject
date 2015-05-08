@@ -31,16 +31,21 @@ class StudentController extends Controller {
         return array('status'=>$status,'data'=>$session);
     }
     public function getCourses(){
-        if (! $user = JWTAuth::parseToken()->authenticate()) {
+        if (! $userAuth = JWTAuth::parseToken()->authenticate()) {
             return response()->json(['user_not_found'], 404);
         }
-        $courses = User::find($user->id)->courses(); // I believe this will return the users courses, could be wrong though
+        $user = User::find($userAuth->id);
         $status = 404;
-        if(sizeof($courses) > 0){
+        if(sizeof($user) > 0){
             $status = 200;
-            $courses->load('department');
+            $user->load('sessions','sessions.course');
         }
-        return array('status'=>$status,'data'=>$courses);
+        $rearrange = array();
+        foreach($user['sessions'] as $value){
+            $temp = $value['course'];
+            $rearrange[] = $temp;
+        }
+        return array('status'=>$status,'data'=>$rearrange);
     }
 
     public function postEnroll($session_id){

@@ -24,11 +24,11 @@ class DatabaseSeeder extends Seeder
         // php artisan db:seed
         // or php artisan migrate --seed
 
-        $count['student'] = 50; // Number of students to generate
+        $count['student'] = 200; // Number of students to generate
         $count['professor'] = 10; // Number of prof's to generate
         $count['admin'] = 5; // Number of admins to generate
-        $count['session'] = 20; // Total Number of course sessions to generate
-        $count['sessionEnroll'] = 20; // Number of students to enroll in each session
+        $count['session'] = 15; // Total Number of course sessions to generate
+        $count['sessionEnroll'] = 16; // Number of students to enroll in each session
         $count['assignment'] = 10; // Number of HW assignments to generate per class, per student with random scores
 
         $student = array();
