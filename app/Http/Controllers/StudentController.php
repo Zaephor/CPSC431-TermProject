@@ -57,8 +57,17 @@ class StudentController extends Controller {
         $status = 200;
         return array('status'=>$status);
     }
-    public function getCourseSession(){
-        return array('getCourseSession:session_id');
+    public function getCourseSessions($course_id){
+        if (! $userAuth = JWTAuth::parseToken()->authenticate()) {
+            return response()->json(['user_not_found'], 404);
+        }
+        $course = Course::find($course_id);
+        $status = 404;
+        if(sizeof($course) > 0){
+            $status = 200;
+            $course->load('sessions','sessions.course');
+        }
+        return array('status'=>$status,'data'=>$course);
     }
     public function postCourseSessionUpload(){
         return array('postCourseSessionUpload:session_id');

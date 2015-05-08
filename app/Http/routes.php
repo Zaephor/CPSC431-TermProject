@@ -32,15 +32,17 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('courses', 'StudentController@getCourses'); //Get all student's courses
         Route::post('enroll/{session_id}', 'StudentController@postEnroll'); //TODO[TEST] Enroll student in course session
         Route::group(['prefix' => 'course'], function () {
-            Route::get('{session_id}', 'StudentController@getCourseSession');
+            Route::get('{course_id}', 'StudentController@getCourseSessions'); // Get avail data for that course
+        });
+        Route::group(['prefix' => 'session'], function () {
             Route::put('{session_id}/upload', 'StudentController@postCourseSessionUpload');
         });
     });
 
     Route::group(['prefix' => 'faculty'], function () {
         Route::get('course/{course_id}', 'FacultyController@getCourse'); //Returns course object of specific course with sessions
-        Route::get('grades/{student_id}', 'FacultyController@getGrades'); //Returns all grades for a given student
-        Route::get('sessions', 'FacultyController@getSessions'); //TODO[FINISH] Returns all sessions professor is responsible for
+        Route::get('grades/{student_id}', 'FacultyController@getGrades'); //Returns all grades for a given student,professor pair
+        Route::get('sessions', 'FacultyController@getSessions'); //Returns all sessions professor is responsible for
         Route::group(['prefix' => 'session'], function () {
             Route::get('{session_id}/assignments', 'FacultyController@getSessionAssignments');
             Route::put('{session_id}/upload', 'FacultyController@postSessionUpload');

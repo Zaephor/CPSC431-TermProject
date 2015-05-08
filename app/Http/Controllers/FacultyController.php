@@ -49,14 +49,18 @@ class FacultyController extends Controller {
         if (! $user = JWTAuth::parseToken()->authenticate()) {
             return response()->json(['user_not_found'], 404);
         }
-        $professor_id = $user->id;
-        $session = Session::where('professor_id','=',$professor_id)->get();
+        $course = Course::with(['sessions',function($query){
+            $userAuth = JWTAuth::parseToken()->authenticate();
+            $query->where('professor_id', '=', $userAuth->id);
+        }])->get();
+//        $session = Session::where('professor_id','=',$user->id)->get();
         $status = 404;
-        if (sizeof($session) > 0) {
+        if (sizeof($course) > 0) {
             $status = 200;
-            $session->load('course', 'course.department', 'professor', 'assignments', 'students');
+//            $session->load('course', 'course.department', 'professor', 'assignments', 'students');
+            $course->load('department','sessions');
         }
-        return array('status' => $status, 'data' => $session);
+        return array('status' => $status, 'data' => $course);
     }
     public function getSessionAssignments(){
         return array("getSessionAssignments:session_id");
