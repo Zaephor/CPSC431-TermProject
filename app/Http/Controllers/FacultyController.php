@@ -72,8 +72,6 @@ class FacultyController extends Controller
         return array('status' => $status, 'data' => $course);
     }
 
-    public function getAllSessions(){}
-
     public function getSessionAssignments()
     {
         return array("getSessionAssignments:session_id");
