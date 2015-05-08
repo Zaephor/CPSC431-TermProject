@@ -36,7 +36,7 @@ class StudentController extends Controller
         $status = 404;
         if (sizeof($user) > 0) {
             $status = 200;
-            $user->load('sessions', 'sessions.course');
+            $user->load('department','sessions', 'sessions.course');
         }
         $rearrange = array();
         foreach ($user['sessions'] as $value) {
@@ -69,7 +69,7 @@ class StudentController extends Controller
         $courses = Course::with(['sessions'=>function($query){
             $query->with(['students'=>function($subQuery){
                 $userAuth = JWTAuth::parseToken()->authenticate();
-                $subQuery->where('student_id','=',$userAuth->id);
+                $subQuery->where('session_user.user_id','=',$userAuth->id);
             }])->get();
         }])->get();
         $status = 404;
