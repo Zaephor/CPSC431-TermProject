@@ -17,6 +17,9 @@ class AdminController extends Controller
 {
     public function getCourses()
     {
+        if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
+            return response()->json(['user_not_found'], 404);
+        }
         $courses = Course::all();
         $status = 404;
         if (sizeof($courses) > 0) {
@@ -28,6 +31,9 @@ class AdminController extends Controller
 
     public function getCourseInfo($course_id)
     {
+        if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
+            return response()->json(['user_not_found'], 404);
+        }
         $course = Course::find($course_id);
         $status = 404;
         if (sizeof($course) == 1) {
@@ -39,6 +45,9 @@ class AdminController extends Controller
 
     public function putCourseAdd()
     {
+        if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
+            return response()->json(['user_not_found'], 404);
+        }
         $course = Course::create([
             'department_id' => Input::get('department_id'),
             'title' => Input::get('title'),
@@ -57,11 +66,17 @@ class AdminController extends Controller
 
     public function postCourseModify($course_id)
     {
+        if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
+            return response()->json(['user_not_found'], 404);
+        }
         return array("postCourseModify");
     }
 
     public function deleteCourseDelete($course_id)
     {
+        if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
+            return response()->json(['user_not_found'], 404);
+        }
         $course = Course::find($course_id);
         $status = 404;
         if (sizeof($course) == 1) {
@@ -73,6 +88,9 @@ class AdminController extends Controller
 
     public function getSessions()
     {
+        if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
+            return response()->json(['user_not_found'], 404);
+        }
         $courses = Course::all();
         $status = 404;
         if (sizeof($courses) > 0) {
@@ -84,6 +102,9 @@ class AdminController extends Controller
 
     public function putSessionAdd()
     {
+        if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
+            return response()->json(['user_not_found'], 404);
+        }
         $session = Session::create([
             'course_id' => Input::get('course_id'),
             'professor_id' => Input::get('professor_id'),
@@ -101,6 +122,9 @@ class AdminController extends Controller
 
     public function getSessionInfo($session_id)
     {
+        if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
+            return response()->json(['user_not_found'], 404);
+        }
         $session = Session::find($session_id);
         $status = 404;
         if (sizeof($session) == 1) {
@@ -112,6 +136,9 @@ class AdminController extends Controller
 
     public function deleteSessionDelete($session_id)
     {
+        if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
+            return response()->json(['user_not_found'], 404);
+        }
         $session = Session::find($session_id);
         $status = 404;
         if (sizeof($session) == 1) {
@@ -124,6 +151,9 @@ class AdminController extends Controller
 
     public function postSessionModify($session_id)
     {
+        if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
+            return response()->json(['user_not_found'], 404);
+        }
         return array("postSessionModify");
     }
 
