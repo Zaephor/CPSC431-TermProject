@@ -62,7 +62,18 @@ class StudentController extends Controller
         return array('status' => $status, 'data' => $course);
     }
 
-    public function getSessions(){}
+    public function getSessions(){
+        if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
+            return response()->json(['user_not_found'], 404);
+        }
+        $courses = Course::all();
+        $status = 404;
+        if (sizeof($courses) > 0) {
+            $status = 200;
+            $courses->load('department', 'sessions');
+        }
+        return array('status' => $status, 'data' => $courses);
+    }
     public function getAllSessions(){}
     public function getSessionAssignments($session_id){}
 
