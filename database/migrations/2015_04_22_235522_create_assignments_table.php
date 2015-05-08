@@ -19,6 +19,7 @@ class CreateAssignmentsTable extends Migration {
             $table->integer('session_id')->unsigned()->index();
             $table->integer('student_id')->unsigned()->index();
             $table->string('assignment_code');
+            $table->binary('content');
             $table->unique(array('session_id','student_id','assignment_code'));
             $table->float('score')->nullable()->default(null);
             $table->foreign('session_id')->references('id')->on('sessions');

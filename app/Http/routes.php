@@ -31,8 +31,8 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('sessions/all', 'AdminController@getSessions');//Just use admin's get all function
         Route::group(['prefix' => 'session'], function () {
             Route::get('{session_id}', 'StudentController@getSpecificSession'); //Return session object matching that id
-            Route::get('{session_id}/assignments','StudentController@getSessionAssignments'); //TODO get all specified session's assignments
-//            Route::put('{session_id}/upload', 'StudentController@postCourseSessionUpload'); //TODO? IS this really needed?
+//            Route::get('{session_id}/assignments','StudentController@getSessionAssignments'); // get all specified session's assignments, ASSIGNMENTS ARE HANDLED ELSEWHERE
+//            Route::put('{session_id}/upload', 'StudentController@postCourseSessionUpload'); //IS this really needed?
         });
 
         Route::get('assignments', 'StudentController@getAssignments'); //Get all student's grades, for all sessions, for all courses
@@ -55,6 +55,7 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('sessions/all', 'AdminController@getSessions'); //Just use admin's get all function
         Route::group(['prefix' => 'session'], function () {
             Route::get('{session_id}/assignments', 'FacultyController@getSessionAssignments');//TODO get all assignments for this session
+            Route::get('{session_id}/students','');
         });
 
 //        Route::get();//TODO returns course objects, containing sessions, which will contain all assignments? still thinking

@@ -92,13 +92,11 @@ class StudentController extends Controller
         }
         return array('status' => $status, 'data' => $rearrange);
     }
+
+    /* Assignments are handled in conjunction with another function elsewhere
     public function getSessionAssignments($session_id){
-        if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
-            return response()->json(['user_not_found'], 404);
-        }
-        $assignments = Assignment::where('session_id','=',$session_id)->get();
-        //TODO
     }
+    */
 
     public function getSpecificSession($session_id){
         if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
@@ -136,5 +134,10 @@ class StudentController extends Controller
     }
 
     public function displayAssignment($assignment_id){}
-    public function putAssignment($assignment_id){}
+    public function putAssignment($assignment_id){
+        if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
+            return response()->json(['user_not_found'], 404);
+        }
+        //TODO
+    }
 }
