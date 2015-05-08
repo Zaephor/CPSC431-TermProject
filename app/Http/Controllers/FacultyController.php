@@ -75,7 +75,16 @@ class FacultyController extends Controller
     public function getSessionAssignments(){}
 
     public function getSessionStudents($session_id){
-
+        if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
+            return response()->json(['user_not_found'], 404);
+        }
+        $session = Session::find($session_id);
+        $status = 404;
+        if (sizeof($session) == 1) {
+            $status = 200;
+            $session->load('students');
+        }
+        return array('status' => $status, 'data' => $session);
     }
 
     public function getAssignment($assignment_id){}
