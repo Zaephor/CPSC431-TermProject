@@ -36,7 +36,7 @@ class StudentController extends Controller
         $status = 404;
         if (sizeof($user) > 0) {
             $status = 200;
-            $user->load('department','sessions', 'sessions.course');
+            $user->load('sessions', 'sessions.course','sessions.course.department');
         }
         $rearrange = array();
         foreach ($user['sessions'] as $value) {
@@ -45,8 +45,6 @@ class StudentController extends Controller
         }
         return array('status' => $status, 'data' => $rearrange);
     }
-
-    public function getAllCourses(){}
 
     public function getCourseSessions($course_id)
     {
