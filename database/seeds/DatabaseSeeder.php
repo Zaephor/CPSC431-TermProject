@@ -30,8 +30,8 @@ class DatabaseSeeder extends Seeder
         $count['professor'] = 100; // Number of prof's to generate
         $count['admin'] = 10; // Number of admins to generate
         $count['session'] = 20; // Total Number of course sessions to generate
-        $count['sessionEnroll'] = 15; // Number of students to enroll in each session
-        $count['assignment'] = 10; // Number of HW assignments to generate per class, per student with random scores
+        $count['sessionEnroll'] = 10; // Number of students to enroll in each session
+        $count['assignment'] = 5; // Number of HW assignments to generate per class, per student with random scores
 
         $student = array();
         for ($i = 1; $i <= $count['student']; $i++) {
@@ -125,7 +125,7 @@ class DatabaseSeeder extends Seeder
         $assignment = array();
         for ($i = 0; $i < $count['session']; $i++) { // Per session
             for ($k = 0; $k < $count['sessionEnroll']; $k++) { // Enroll students
-                $someId = (($i + $k) % $count['student']); // Pick a student
+                $someId = ((($i*100) + $k) % $count['student']); // Pick a student
                 // Enroll the student to this session
                 $student[$someId]->sessions()->attach($session[$i % $count['session']]->id);
 
