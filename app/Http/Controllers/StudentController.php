@@ -76,22 +76,24 @@ class StudentController extends Controller
         if (sizeof($courses) > 0) {
             $status = 200;
             $courses->load('department');
+/*
             $rearrange = $courses;
             foreach($courses as $i=>$course){
                 if(sizeof($course->sessions) == 0) {
-                    unset($rearrange[$i]);
+//                    unset($rearrange[$i]);
                 } else {
                     foreach ($course->sessions as $j => $session) {
                         if (sizeof($session->students) == 0) {
-                            unset($rearrange[$i]->sessions[$j]);
+//                            unset($rearrange[$i]->sessions[$j]);
                         } else {
-                            unset($rearrange[$i]->sessions[$j]->students);
+//                            unset($rearrange[$i]->sessions[$j]->students);
                         }
                     }
                 }
             }
+*/
         }
-        return array('status' => $status, 'data' => $rearrange);
+        return array('status' => $status, 'data' => $courses);
     }
 
     /* Assignments are handled in conjunction with another function elsewhere
