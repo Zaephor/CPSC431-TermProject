@@ -123,9 +123,11 @@ class DatabaseSeeder extends Seeder
             ]);
         }
         $assignment = array();
+        $count['used'] = 1;
         for ($i = 0; $i < $count['session']; $i++) { // Per session
             for ($k = 0; $k < $count['sessionEnroll']; $k++) { // Enroll students
-                $someId = ((($i*100) + $k) % $count['student']); // Pick a student
+                //$someId = ((($i*100) + $k) % $count['student']); // Pick a student
+                $someId = $count['used'] % $count['student']; // Pick a student
                 // Enroll the student to this session
                 $student[$someId]->sessions()->attach($session[$i % $count['session']]->id);
 
@@ -153,6 +155,7 @@ class DatabaseSeeder extends Seeder
                         'score' => $scores[mt_rand(0, sizeof($scores) - 1)]
                     ]);
                 }
+                $count['used']++;
             }
         }
     }
