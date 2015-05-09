@@ -69,7 +69,20 @@ class AdminController extends Controller
         if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
             return response()->json(['user_not_found'], 404);
         }
-        return array("postCourseModify");
+        $course = Course::find($course_id);
+        $course->department_id = Input::get('department_id');
+        $course->title = Input::get('title');
+        $course->description = Input::get('description');
+        $course->code = Input::get('code');
+        $course->unitval = Input::get('unitval');
+
+        $result = $course->push();
+        $status = 401;
+        if ($result == true) {
+            $status = 200;
+            $course->load('department', 'sessions', 'sessions.professor');
+        }
+        return array('status' => $status, 'data' => $course);
     }
 
     public function deleteCourseDelete($course_id)
@@ -154,7 +167,18 @@ class AdminController extends Controller
         if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
             return response()->json(['user_not_found'], 404);
         }
-        return array("postSessionModify");
-    }
+        $session = Session::find($session_id);
+        $session->course_id = Input::get('course_id');
+        $session->professor_id = Input::get('professor_id');
+        $session->begins_on = Input::get('begins_on');
+        $session->ends_on = Input::get('ends_on');
 
+        $result = $session->push();
+        $status = 304;
+        if ($result == true) {
+            $status = 200;
+            $session->load('course', 'professor', 'course.department');
+        }
+        return array('status' => $status, 'data' => $session);
+    }
 }
