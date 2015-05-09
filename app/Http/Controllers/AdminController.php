@@ -16,17 +16,19 @@ use JWTAuth;
 
 class AdminController extends Controller
 {
-    public function getAllFactulty(){
+    public function getAllFactulty()
+    {
         if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
             return response()->json(['user_not_found'], 404);
         }
-        $faculty = User::where('role','=','faculty')->get();
+        $faculty = User::where('role', '=', 'faculty')->get();
         $status = 404;
         if (sizeof($faculty) > 0) {
             $status = 200;
         }
         return array('status' => $status, 'data' => $faculty);
     }
+
     public function getCourses()
     {
         if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
@@ -120,7 +122,7 @@ class AdminController extends Controller
         $status = 404;
         if (sizeof($courses) > 0) {
             $status = 200;
-            $courses->load('department', 'sessions','sessions.professor');
+            $courses->load('department', 'sessions', 'sessions.professor');
         }
         return array('status' => $status, 'data' => $courses);
     }

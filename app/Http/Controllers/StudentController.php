@@ -25,7 +25,7 @@ class StudentController extends Controller
         $user->sessions()->attach($session_id);
         //TODO Get copy of assignments from any other student in that same session, and add it to this user...
         $status = 200;
-        return array('status' => $status,'data'=>"There's no major error checking here... So Hello Daniel.");
+        return array('status' => $status, 'data' => "There's no major error checking here... So Hello Daniel.");
     }
 
     public function getCourses()
@@ -37,7 +37,7 @@ class StudentController extends Controller
         $status = 404;
         if (sizeof($user) > 0) {
             $status = 200;
-            $user->load('sessions', 'sessions.course','sessions.course.department');
+            $user->load('sessions', 'sessions.course', 'sessions.course.department');
         }
         $rearrange = array();
         foreach ($user['sessions'] as $value) {
@@ -61,14 +61,15 @@ class StudentController extends Controller
         return array('status' => $status, 'data' => $course);
     }
 
-    public function getSessions(){
+    public function getSessions()
+    {
         if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
             return response()->json(['user_not_found'], 404);
         }
-        $courses = Course::with(['sessions'=>function($query){
-            $query->with(['students'=>function($subQuery){
+        $courses = Course::with(['sessions' => function ($query) {
+            $query->with(['students' => function ($subQuery) {
                 $userAuth = JWTAuth::parseToken()->authenticate();
-                $subQuery->where('session_user.user_id','=',$userAuth->id);
+                $subQuery->where('session_user.user_id', '=', $userAuth->id);
             }])->get();
         }])->get();
         $status = 404;
@@ -76,22 +77,22 @@ class StudentController extends Controller
         if (sizeof($courses) > 0) {
             $status = 200;
             $courses->load('department');
-/*
-            $rearrange = $courses;
-            foreach($courses as $i=>$course){
-                if(sizeof($course->sessions) == 0) {
-//                    unset($rearrange[$i]);
-                } else {
-                    foreach ($course->sessions as $j => $session) {
-                        if (sizeof($session->students) == 0) {
-//                            unset($rearrange[$i]->sessions[$j]);
-                        } else {
-//                            unset($rearrange[$i]->sessions[$j]->students);
+            /*
+                        $rearrange = $courses;
+                        foreach($courses as $i=>$course){
+                            if(sizeof($course->sessions) == 0) {
+            //                    unset($rearrange[$i]);
+                            } else {
+                                foreach ($course->sessions as $j => $session) {
+                                    if (sizeof($session->students) == 0) {
+            //                            unset($rearrange[$i]->sessions[$j]);
+                                    } else {
+            //                            unset($rearrange[$i]->sessions[$j]->students);
+                                    }
+                                }
+                            }
                         }
-                    }
-                }
-            }
-*/
+            */
         }
         return array('status' => $status, 'data' => $courses);
     }
@@ -101,7 +102,8 @@ class StudentController extends Controller
     }
     */
 
-    public function getSpecificSession($session_id){
+    public function getSpecificSession($session_id)
+    {
         if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
             return response()->json(['user_not_found'], 404);
         }
@@ -109,10 +111,11 @@ class StudentController extends Controller
         $status = 404;
         if (sizeof($session) > 0) {
             $status = 200;
-            $session->load('course','course.department', 'professor');
+            $session->load('course', 'course.department', 'professor');
         }
         return array('status' => $status, 'data' => $session);
     }
+
     // IS THIS NEEDED?
     public function postCourseSessionUpload()
     {
@@ -131,13 +134,17 @@ class StudentController extends Controller
         $status = 404;
         if (sizeof($session) > 0) {
             $status = 200;
-            $session->load('course','course.department', 'professor');
+            $session->load('course', 'course.department', 'professor');
         }
         return array('status' => $status, 'data' => $session);
     }
 
-    public function displayAssignment($assignment_id){}
-    public function putAssignment($assignment_id){
+    public function displayAssignment($assignment_id)
+    {
+    }
+
+    public function putAssignment($assignment_id)
+    {
         if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
             return response()->json(['user_not_found'], 404);
         }

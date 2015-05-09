@@ -36,8 +36,13 @@ class FacultyController extends Controller
         return array('status' => $status, 'data' => $responseData);
     }
 
-    public function getCourses(){}
-    public function getAllCourses(){}
+    public function getCourses()
+    {
+    }
+
+    public function getAllCourses()
+    {
+    }
 
     public function getCourseInfo($course_id)
     {
@@ -53,7 +58,8 @@ class FacultyController extends Controller
         return array('status' => $status, 'data' => $course);
     }
 
-    public function getSessions(){
+    public function getSessions()
+    {
         if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
             return response()->json(['user_not_found'], 404);
         }
@@ -71,9 +77,12 @@ class FacultyController extends Controller
         return array('status' => $status, 'data' => $course);
     }
 
-    public function getSessionAssignments(){}
+    public function getSessionAssignments()
+    {
+    }
 
-    public function getSessionStudents($session_id){
+    public function getSessionStudents($session_id)
+    {
         if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
             return response()->json(['user_not_found'], 404);
         }
@@ -86,10 +95,21 @@ class FacultyController extends Controller
         return array('status' => $status, 'data' => $session);
     }
 
-    public function getAssignment($assignment_id){}
-    public function postCreateAssignment(){}
-    public function putModifyAssignment($assignment_id){}
-    public function deleteDeleteAssignment($assignment_id){}
+    public function getAssignment($assignment_id)
+    {
+    }
+
+    public function postCreateAssignment()
+    {
+    }
+
+    public function putModifyAssignment($assignment_id)
+    {
+    }
+
+    public function deleteDeleteAssignment($assignment_id)
+    {
+    }
 
     // ????
     public function postSessionUpload()
