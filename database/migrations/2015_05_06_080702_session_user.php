@@ -19,6 +19,7 @@ class SessionUser extends Migration {
             $table->timestamps();
             $table->foreign('session_id')->references('id')->on('sessions');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->unique(array('session_id','user_id'));
         });
 	}
 
