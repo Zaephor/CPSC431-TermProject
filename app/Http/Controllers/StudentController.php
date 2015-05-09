@@ -88,7 +88,6 @@ class StudentController extends Controller
                             unset($rearrange[$i]->sessions[$j]->students);
                         }
                     }
-                    $rearrange[$i] = array_values($rearrange[$i]);
                 }
             }
         }
