@@ -20,21 +20,24 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
 
+        $faker = Faker\Factory::create();
+
         // Generates test data via
         // php artisan db:seed
         // or php artisan migrate --seed
 
-        $count['student'] = 500; // Number of students to generate
-        $count['professor'] = 10; // Number of prof's to generate
-        $count['admin'] = 5; // Number of admins to generate
-        $count['session'] = 14; // Total Number of course sessions to generate
-        $count['sessionEnroll'] = 17; // Number of students to enroll in each session
+        $count['student'] = 2000; // Number of students to generate
+        $count['professor'] = 100; // Number of prof's to generate
+        $count['admin'] = 10; // Number of admins to generate
+        $count['session'] = 20; // Total Number of course sessions to generate
+        $count['sessionEnroll'] = 15; // Number of students to enroll in each session
         $count['assignment'] = 10; // Number of HW assignments to generate per class, per student with random scores
 
         $student = array();
         for ($i = 1; $i <= $count['student']; $i++) {
             $student[] = User::create([
-                'name' => 'Test Student' . $i,
+//                'name' => 'Test Student' . $i,
+                'name' => $faker->name,
                 'email' => 'student' . $i . '@test.com',
                 'password' => Hash::make('test'),
                 'role' => 'student'
@@ -43,7 +46,8 @@ class DatabaseSeeder extends Seeder
         $professor = array();
         for ($i = 1; $i <= $count['professor']; $i++) {
             $professor[] = User::create([
-                'name' => 'Test Professor' . $i,
+//                'name' => 'Test Professor' . $i,
+                'name' => $faker->name,
                 'email' => 'professor' . $i . '@test.com',
                 'password' => Hash::make('test'),
                 'role' => 'faculty'
@@ -52,8 +56,9 @@ class DatabaseSeeder extends Seeder
         $admin = array();
         for ($i = 1; $i <= $count['admin']; $i++) {
             $admin[] = User::create([
-                'name' => 'Test Admin'.$i,
-                'email' => 'admin'.$i.'@test.com',
+//                'name' => 'Test Admin' . $i,
+                'name' => $faker->name,
+                'email' => 'admin' . $i . '@test.com',
                 'password' => Hash::make('test'),
                 'role' => 'admin'
             ]);
@@ -119,8 +124,8 @@ class DatabaseSeeder extends Seeder
         }
         $assignment = array();
         for ($i = 0; $i < $count['session']; $i++) { // Per session
-            for($k=0;$k< $count['sessionEnroll'];$k++) { // Enroll students
-                $someId = (($i+$k) % $count['student']); // Pick a student
+            for ($k = 0; $k < $count['sessionEnroll']; $k++) { // Enroll students
+                $someId = (($i + $k) % $count['student']); // Pick a student
                 // Enroll the student to this session
                 $student[$someId]->sessions()->attach($session[$i % $count['session']]->id);
 
