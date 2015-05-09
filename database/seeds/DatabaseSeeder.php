@@ -37,7 +37,7 @@ class DatabaseSeeder extends Seeder
         for ($i = 1; $i <= $count['student']; $i++) {
             $student[] = User::create([
 //                'name' => 'Test Student' . $i,
-                'name' => $faker->name,
+                'name' => $faker->firstName.' '.$faker->lastName,
                 'email' => 'student' . $i . '@test.com',
                 'password' => Hash::make('test'),
                 'role' => 'student'
