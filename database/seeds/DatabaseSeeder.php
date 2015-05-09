@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        $faker = Faker\Factory::create();
+        $faker = Faker\Factory::create('en_US');
 
         // Generates test data via
         // php artisan db:seed
