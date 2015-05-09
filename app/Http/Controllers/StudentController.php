@@ -23,6 +23,7 @@ class StudentController extends Controller
         }
         $user = User::find($userAuth->id); // Get student ID from user token or session
         $user->sessions()->attach($session_id);
+        //TODO Get copy of assignments from any other student in that same session, and add it to this user...
         $status = 200;
         return array('status' => $status,'data'=>"There's no major error checking here... So Hello Daniel.");
     }
@@ -87,6 +88,7 @@ class StudentController extends Controller
                             unset($rearrange[$i]->sessions[$j]->students);
                         }
                     }
+                    $rearrange[$i] = array_values($rearrange[$i]);
                 }
             }
         }
