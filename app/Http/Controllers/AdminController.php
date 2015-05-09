@@ -11,10 +11,22 @@ namespace App\Http\Controllers;
 
 use App\Course;
 use App\Session;
+use App\User;
 use JWTAuth;
 
 class AdminController extends Controller
 {
+    public function getAllFactulty(){
+        if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
+            return response()->json(['user_not_found'], 404);
+        }
+        $faculty = User::where('role','=','faculty')->get();
+        $status = 404;
+        if (sizeof($faculty) > 0) {
+            $status = 200;
+        }
+        return array('status' => $status, 'data' => $faculty);
+    }
     public function getCourses()
     {
         if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
