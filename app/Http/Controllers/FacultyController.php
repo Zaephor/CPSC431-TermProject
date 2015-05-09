@@ -53,12 +53,11 @@ class FacultyController extends Controller
         return array('status' => $status, 'data' => $course);
     }
 
-    public function getSessions()
-    {
-        if (!$user = JWTAuth::parseToken()->authenticate()) {
+    public function getSessions(){
+        if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
             return response()->json(['user_not_found'], 404);
         }
-        $course = Course::with(['sessions', function ($query) {
+        $course = Course::with(['sessions' => function ($query) {
             $userAuth = JWTAuth::parseToken()->authenticate();
             $query->where('professor_id', '=', $userAuth->id);
         }])->get();
@@ -67,7 +66,7 @@ class FacultyController extends Controller
         if (sizeof($course) > 0) {
             $status = 200;
 //            $session->load('course', 'course.department', 'professor', 'assignments', 'students');
-            $course->load('department', 'sessions');
+            $course->load('department');
         }
         return array('status' => $status, 'data' => $course);
     }
