@@ -24,7 +24,7 @@ class StudentController extends Controller
         $user = User::find($userAuth->id); // Get student ID from user token or session
         $user->sessions()->attach($session_id);
         $status = 200;
-        return array('status' => $status);
+        return array('status' => $status,'data'=>"There's no major error checking here... So Hello Daniel.");
     }
 
     public function getCourses()
