@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
         $count['student'] = 2000; // Number of students to generate
         $count['professor'] = 100; // Number of prof's to generate
         $count['admin'] = 10; // Number of admins to generate
-        $count['session'] = 20; // Total Number of course sessions to generate
+        $count['session'] = 50; // Total Number of course sessions to generate
         $count['sessionEnroll'] = 10; // Number of students to enroll in each session
         $count['assignment'] = 5; // Number of HW assignments to generate per class, per student with random scores
 
