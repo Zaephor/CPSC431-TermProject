@@ -13,6 +13,7 @@ use App\Course;
 use App\Assignment;
 use App\Session;
 use PDF;
+use Faker;
 use JWTAuth;
 
 class StudentController extends Controller
@@ -127,6 +128,7 @@ class StudentController extends Controller
         if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
             return response()->json(['user_not_found'], 404);
         }
+        $faker = Faker\Factory::create('en_US');
         $session = Session::find($session_id);
         $status = 404;
         if (sizeof($session) > 0) {
@@ -134,7 +136,7 @@ class StudentController extends Controller
             $session->load('course', 'course.department', 'professor');
         }
 //        return array('status' => $status, 'data' => $session);
-        $pdf = PDF::loadView('syllabus', ['session'=>$session]);
+        $pdf = PDF::loadView('syllabus', ['session'=>$session,'faker'=>$faker]);
         return view('syllabus',['session'=>$session]);
 //        return $pdf->download('syllabus.pdf');
     }
