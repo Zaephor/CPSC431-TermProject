@@ -77,7 +77,7 @@ class StudentController extends Controller
         $rearrange = array();
         if (sizeof($courses) > 0) {
             $status = 200;
-            $courses->load('department');
+            $courses->load('department','sessions.professor');
             /*
                         $rearrange = $courses;
                         foreach($courses as $i=>$course){
