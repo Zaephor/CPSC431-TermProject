@@ -45,6 +45,7 @@ Route::group(['prefix' => 'api'], function () {
 
     Route::group(['prefix' => 'faculty'], function () {
         Route::get('grades/{student_id}', 'FacultyController@getGrades'); //Returns all grades for a given student,professor pair
+        Route::get('grades/{student_id}/{session_id}', 'FacultyController@getGradesSession'); //Returns all grades for a given student,professor pair
 
         Route::get('courses', 'FacultyController@getCourses'); //TODO Return all courses tied to this prof
         Route::get('courses/all', 'AdminController@getCourses');//Just use Admin's get all courses function

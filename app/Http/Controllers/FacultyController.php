@@ -36,6 +36,25 @@ class FacultyController extends Controller
         return array('status' => $status, 'data' => $responseData);
     }
 
+    public function getGradesSession($student_id,$session_id){
+        if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
+            return response()->json(['user_not_found'], 404);
+        }
+        // Alternate ideas: $assignments = Assignment::has('students.id','=',$student_id)->get();
+        $assignments = Assignment::where('student_id', '=', $student_id)->get();
+        $status = 404;
+        if (sizeof($assignments) > 0) {
+            $status = 200;
+            $assignments->load('session', 'session.course', 'session.course.department', 'session.professor');
+        }
+        $responseData = array();
+        foreach ($assignments as $entry) {
+            if ($entry->session->professor_id == $userAuth->id && $entry->session->id == $session_id) {
+                $responseData[] = $entry;
+            }
+        }
+        return array('status' => $status, 'data' => $responseData);
+    }
     public function getCourses()
     {
     }
