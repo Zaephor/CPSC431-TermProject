@@ -72,7 +72,7 @@ class FacultyController extends Controller
         if (sizeof($course) > 0) {
             $status = 200;
 //            $session->load('course', 'course.department', 'professor', 'assignments', 'students');
-            $course->load('department');
+            $course->load('department','professor');
         }
         return array('status' => $status, 'data' => $course);
     }
