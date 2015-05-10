@@ -12,6 +12,7 @@ use App\User;
 use App\Course;
 use App\Assignment;
 use App\Session;
+use PDF;
 use JWTAuth;
 
 class StudentController extends Controller
