@@ -64,8 +64,8 @@ Route::group(['prefix' => 'api'], function () {
 //        Route::get();//TODO returns course objects, containing sessions, which will contain all assignments? still thinking
         Route::group(['prefix' => 'assignment'], function () {
             Route::get('{assignment_id}', 'FacultyController@getAssignment');//TODO Display assignment object
-            Route::post('add', 'FacultyController@postCreateAssignment');//TODO Create an assignment for a class, assume sessionID in post data
-            Route::put('{assignment_id}/modify', 'FacultyController@putModifyAssignment');//TODO Update assignment object(IE set grade)
+            Route::post('add', 'FacultyController@postCreateAssignment');//Should pull all users in a session_id(post data), and add a new assignment to all of their lists
+            Route::put('{assignment_id}/modify', 'FacultyController@putModifyAssignment');//Allows a prof to set the score/grade
             Route::delete('{assignment_id}/delete', 'FacultyController@deleteDeleteAssignment');//TODO Delete the assignment
         });
     });

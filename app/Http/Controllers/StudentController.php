@@ -26,7 +26,22 @@ class StudentController extends Controller
         $user = User::find($userAuth->id); // Get student ID from user token or session
         $user->sessions()->attach($session_id);
         //TODO Get copy of assignments from any other student in that same session, and add it to this user...
-        $status = 200;
+        $assignments = Assignment::with(['session'=>function($query) use ($session_id){
+                $query->where('id','=',$session_id);
+            }])->groupBy('assignment_code')->get();
+        $newAssignments = array();
+        foreach($assignments as $workToDo){
+            $newAssignments[] = Assignment::create([
+                'session_id'=>$session_id,
+                'student_id'=>$userAuth->id,
+                'assignment_code'=>$workToDo->assignment_code,
+                'score'=>null
+            ]);
+        }
+        $status = 401;
+        if(sizeof($assignments) == sizeof($newAssignments)){
+            $status = 200;
+        }
         return array('status' => $status, 'data' => "There's no major error checking here... So Hello Daniel.");
     }
 
@@ -68,9 +83,8 @@ class StudentController extends Controller
         if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
             return response()->json(['user_not_found'], 404);
         }
-        $courses = Course::with(['sessions' => function ($query) {
-            $query->with(['students' => function ($subQuery) {
-                $userAuth = JWTAuth::parseToken()->authenticate();
+        $courses = Course::with(['sessions' => function ($query) use ($userAuth) {
+            $query->with(['students' => function ($subQuery) use ($userAuth) {
                 $subQuery->where('session_user.user_id', '=', $userAuth->id);
             },'professor'])->get();
         },'department'])->get();
@@ -146,8 +160,7 @@ class StudentController extends Controller
         if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
             return response()->json(['user_not_found'], 404);
         }
-        $session = Session::with(['assignments' => function ($query) {
-            $userAuth = JWTAuth::parseToken()->authenticate();
+        $session = Session::with(['assignments' => function ($query) use ($userAuth) {
             $query->where('student_id', '=', $userAuth->id);
         }])->get();
         $status = 404;

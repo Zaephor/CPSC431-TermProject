@@ -82,8 +82,7 @@ class FacultyController extends Controller
         if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
             return response()->json(['user_not_found'], 404);
         }
-        $course = Course::with(['sessions' => function ($query) {
-            $userAuth = JWTAuth::parseToken()->authenticate();
+        $course = Course::with(['sessions' => function ($query) use ($userAuth) {
             $query->where('professor_id', '=', $userAuth->id)->with('professor');
         },'department'])->get();
 //        $session = Session::where('professor_id','=',$user->id)->get();
@@ -120,10 +119,39 @@ class FacultyController extends Controller
 
     public function postCreateAssignment()
     {
+        if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
+            return response()->json(['user_not_found'], 404);
+        }
+        $users = User::where('session_user.session_id','=',Input::get("session_id"));
+        $assignments = array();
+        foreach($users as $entry) {
+            $assignments[] = Assignment::create([
+                'session_id' => Input::get("session_id"),
+                'student_id' =>$entry->id,
+                'assignment_code' => Input::get,
+                'score' => null
+            ]);
+        }
+        $status = 401;
+        if (sizeof($users) == sizeof($assignments)) {
+            $status = 200;
+        }
+        return array('status' => $status, 'data' => $assignments);
     }
 
     public function putModifyAssignment($assignment_id)
     {
+        if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
+            return response()->json(['user_not_found'], 404);
+        }
+        $assignments = Assignment::find($assignment_id);
+        $assignments->score = Input::get('score');
+        $result = $assignments->push();
+        $status = 401;
+        if ($result == true) {
+            $status = 200;
+        }
+        return array('status' => $status, 'data' => $assignments);
     }
 
     public function deleteDeleteAssignment($assignment_id)
