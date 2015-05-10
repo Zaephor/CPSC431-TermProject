@@ -10,7 +10,7 @@
 </p>
 
 <p>
-    {{ 'Hello?' }}
+    Hello?
 </p>
 </body>
 </html>
