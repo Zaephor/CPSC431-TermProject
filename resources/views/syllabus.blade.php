@@ -9,7 +9,7 @@
     {{ $session->room }}<br/>
 </p>
 <p>
-    {{ $faker }}
+    {{ implode('<br />',$faker) }}
 </p>
 </body>
 </html>
