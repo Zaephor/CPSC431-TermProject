@@ -9,7 +9,7 @@
     {{ $session->room }}<br/>
 </p>
 <p>
-    {{ $faker->paragraphs(5) }}
+    {{ $faker }}
 </p>
 </body>
 </html>

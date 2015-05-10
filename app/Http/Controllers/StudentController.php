@@ -136,8 +136,8 @@ class StudentController extends Controller
             $session->load('course', 'course.department', 'professor');
         }
 //        return array('status' => $status, 'data' => $session);
-        $pdf = PDF::loadView('syllabus', ['session'=>$session,'faker'=>$faker]);
-        return view('syllabus',['session'=>$session]);
+        $pdf = PDF::loadView('syllabus', ['session'=>$session,'faker'=>$faker->paragraphs(5)]);
+        return view('syllabus',['session'=>$session,'faker'=>$faker->paragraphs(5)]);
 //        return $pdf->download('syllabus.pdf');
     }
 
