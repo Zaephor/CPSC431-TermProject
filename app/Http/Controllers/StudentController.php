@@ -71,13 +71,13 @@ class StudentController extends Controller
             $query->with(['students' => function ($subQuery) {
                 $userAuth = JWTAuth::parseToken()->authenticate();
                 $subQuery->where('session_user.user_id', '=', $userAuth->id);
-            }])->get();
-        }])->get();
+            },'professor'])->get();
+        },'department'])->get();
         $status = 404;
         $rearrange = array();
         if (sizeof($courses) > 0) {
             $status = 200;
-            $courses->load('department','sessions.professor');
+//            $courses->load('department');
             /*
                         $rearrange = $courses;
                         foreach($courses as $i=>$course){
