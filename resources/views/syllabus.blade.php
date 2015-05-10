@@ -1,7 +1,7 @@
 <html>
 <body>
 <p>
-    {{ $session }}
+    {{ $this }}
 </p>
 </body>
 </html>
