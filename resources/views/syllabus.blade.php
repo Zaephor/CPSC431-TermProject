@@ -1,7 +1,7 @@
 <html>
 <body>
 <p>
-    {{ $this }}
+    {{ print_r($this) }}
 </p>
 </body>
 </html>
