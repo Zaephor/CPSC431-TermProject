@@ -10,6 +10,7 @@ namespace App\Http\Controllers;
 
 
 use App\Course;
+use App\Department;
 use App\Session;
 use App\User;
 use JWTAuth;
@@ -27,6 +28,18 @@ class AdminController extends Controller
             $status = 200;
         }
         return array('status' => $status, 'data' => $faculty);
+    }
+
+    public function getAllDepartments(){
+        if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
+            return response()->json(['user_not_found'], 404);
+        }
+        $department = Department::all();
+        $status = 404;
+        if (sizeof($department) > 0) {
+            $status = 200;
+        }
+        return array('status' => $status, 'data' => $department);
     }
 
     public function getCourses()
@@ -187,7 +200,7 @@ class AdminController extends Controller
         $session->professor_id = Input::get('professor_id');
         $session->begins_on = Input::get('begins_on');
         $session->ends_on = Input::get('ends_on');
-        $session->room => Input::get('room');
+        $session->room = Input::get('room');
 
         $result = $session->push();
         $status = 304;
