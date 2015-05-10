@@ -119,7 +119,8 @@ class DatabaseSeeder extends Seeder
                 'course_id' => $course[$i % $count['course']]->id,
                 'professor_id' => $professor[$i % $count['professor']]->id,
                 'begins_on' => date("Y-m-d", $rand['start']),
-                'ends_on' => date("Y-m-d", $rand['end'])
+                'ends_on' => date("Y-m-d", $rand['end']),
+                'room' => strtoupper($faker->randomLetter).$faker->buildingNumber
             ]);
         }
         $assignment = array();

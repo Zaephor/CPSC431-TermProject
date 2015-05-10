@@ -122,6 +122,21 @@ class StudentController extends Controller
         return array('postCourseSessionUpload:session_id');
     }
 
+    public function getSessionSyllabus($session_id){
+        if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
+            return response()->json(['user_not_found'], 404);
+        }
+        $session = Session::find($session_id);
+        $status = 404;
+        if (sizeof($session) > 0) {
+            $status = 200;
+            $session->load('course', 'course.department', 'professor');
+        }
+//        return array('status' => $status, 'data' => $session);
+        $pdf = PDF::loadView('pdf.invoice', $session);
+        return $pdf->download('invoice.pdf');
+    }
+
     public function getAssignments()
     {
         if (!$userAuth = JWTAuth::parseToken()->authenticate()) {

@@ -18,6 +18,7 @@ class CreateSessionsTable extends Migration {
 			$table->timestamps();
             $table->integer('course_id')->unsigned();
             $table->integer('professor_id')->unsigned();
+            $table->string('room', 16);
             $table->date('begins_on');
             $table->date('ends_on');
             $table->foreign('course_id')->references('id')->on('courses');

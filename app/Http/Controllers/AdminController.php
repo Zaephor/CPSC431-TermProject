@@ -136,7 +136,8 @@ class AdminController extends Controller
             'course_id' => Input::get('course_id'),
             'professor_id' => Input::get('professor_id'),
             'begins_on' => Input::get('begins_on'),
-            'ends_on' => Input::get('ends_on')
+            'ends_on' => Input::get('ends_on'),
+            'room' => Input::get('room')
         ]);
         $result = $session->push();
         $status = 304;
@@ -186,6 +187,7 @@ class AdminController extends Controller
         $session->professor_id = Input::get('professor_id');
         $session->begins_on = Input::get('begins_on');
         $session->ends_on = Input::get('ends_on');
+        $session->room => Input::get('room');
 
         $result = $session->push();
         $status = 304;

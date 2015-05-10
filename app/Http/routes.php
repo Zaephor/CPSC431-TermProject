@@ -31,6 +31,7 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('sessions/all', 'AdminController@getSessions');//Just use admin's get all function
         Route::group(['prefix' => 'session'], function () {
             Route::get('{session_id}', 'StudentController@getSpecificSession'); //Return session object matching that id
+            Route::get('{session_id}/syllabus','StudentController@getSessionSyllabus');
 //            Route::get('{session_id}/assignments','StudentController@getSessionAssignments'); // get all specified session's assignments, ASSIGNMENTS ARE HANDLED ELSEWHERE
 //            Route::put('{session_id}/upload', 'StudentController@postCourseSessionUpload'); //IS this really needed?
         });

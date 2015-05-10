@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 class Session extends Model {
 
     protected $table = 'sessions';
-    protected $fillable = ['course_id','professor_id','begins_on','ends_on'];
+    protected $fillable = ['course_id','professor_id','begins_on','ends_on','room'];
 
     public function course(){
         return $this->belongsTo('App\Course');
