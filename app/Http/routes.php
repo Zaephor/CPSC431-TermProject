@@ -72,7 +72,7 @@ Route::group(['prefix' => 'api'], function () {
 
     Route::group(['prefix' => 'admin'], function () {
         Route::get('faculty/all','AdminController@getAllFactulty'); //Returns all faculty
-        Route::get('departments/all','AdminController@getAllDepartments');
+        Route::get('departments/all','AdminController@getAllDepartments'); // Returns all departments
 
         Route::get('courses', 'AdminController@getCourses'); //Returns all of them, plus their department
         Route::group(['prefix' => 'course'], function () {
