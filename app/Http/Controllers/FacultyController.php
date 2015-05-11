@@ -146,7 +146,7 @@ class FacultyController extends Controller
         }
         $assignments = Assignment::find($assignment_id);
         $assignments->score = Input::get('score');
-        $result = $assignments->push();
+        $result = $assignments->save();
         $status = 401;
         if ($result == true) {
             $status = 200;
