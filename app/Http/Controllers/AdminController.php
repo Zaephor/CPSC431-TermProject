@@ -103,7 +103,7 @@ class AdminController extends Controller
         $course->code = Input::get('code');
         $course->unitval = Input::get('unitval');
 
-        $result = $course->push();
+        $result = $course->save();
         $status = 401;
         if ($result == true) {
             $status = 200;
@@ -202,7 +202,7 @@ class AdminController extends Controller
         $session->ends_on = Input::get('ends_on');
         $session->room = Input::get('room');
 
-        $result = $session->push();
+        $result = $session->save();
         $status = 304;
         if ($result == true) {
             $status = 200;
