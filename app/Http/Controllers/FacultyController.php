@@ -144,12 +144,15 @@ class FacultyController extends Controller
         if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
             return response()->json(['user_not_found'], 404);
         }
-        $assignments = Assignment::find($assignment_id);
-        $assignments->score = Input::get('score',null);
-        $result = $assignments->save();
         $status = 401;
-        if ($result == true) {
-            $status = 200;
+        $assignments = null;
+        if(Input::has('score')) {
+            $assignments = Assignment::find($assignment_id);
+            $assignments->score = Input::get('score');
+            $result = $assignments->save();
+            if ($result == true) {
+                $status = 200;
+            }
         }
         return array('status' => $status, 'data' => $assignments);
     }
