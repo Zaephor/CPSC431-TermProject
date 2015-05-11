@@ -139,9 +139,6 @@ class StudentController extends Controller
     }
 
     public function getSessionSyllabus($session_id){
-        if (!$userAuth = JWTAuth::parseToken()->authenticate()) {
-            return response()->json(['user_not_found'], 404);
-        }
         $faker = Faker\Factory::create('en_US');
         $session = Session::find($session_id);
         $status = 404;
