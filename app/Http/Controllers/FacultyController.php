@@ -11,6 +11,7 @@ namespace App\Http\Controllers;
 use App\Course;
 use App\Assignment;
 use App\Session;
+use Input;
 use JWTAuth;
 
 class FacultyController extends Controller
