@@ -12,6 +12,7 @@ use App\User;
 use App\Course;
 use App\Assignment;
 use App\Session;
+use Input;
 use PDF;
 use Faker;
 use JWTAuth;

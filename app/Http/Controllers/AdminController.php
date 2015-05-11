@@ -13,6 +13,7 @@ use App\Course;
 use App\Department;
 use App\Session;
 use App\User;
+use Input;
 use JWTAuth;
 
 class AdminController extends Controller
