@@ -145,7 +145,7 @@ class FacultyController extends Controller
             return response()->json(['user_not_found'], 404);
         }
         $assignments = Assignment::find($assignment_id);
-        $assignments->score = Input::get('score');
+        $assignments->score = Input::get('score',null);
         $result = $assignments->save();
         $status = 401;
         if ($result == true) {
