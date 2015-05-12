@@ -28,6 +28,9 @@ There are 2000 student accounts, 100 faculty accounts, and 10 admin accounts. Al
 * modify grades:
  My Classes->session id->view grades (student id)->save
 
+### Platform structure
+The site is running on a Dokku-alt server, which manages PHP versions and databases for us reducing the effort on system administration during development. The code was designed in a divided manner, whereas the PHP backend is essentially a pure web service api system and the frontend is an AngularJS web service client. This allows a variety of possibilities in design, allowing for multiple front-end clients in varying programming languages.
+
 ## Target installation environment
 * Dokku-alt
 
