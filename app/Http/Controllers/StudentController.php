@@ -90,26 +90,8 @@ class StudentController extends Controller
             },'professor'])->get();
         },'department'])->get();
         $status = 404;
-        $rearrange = array();
         if (sizeof($courses) > 0) {
             $status = 200;
-//            $courses->load('department');
-            /*
-                        $rearrange = $courses;
-                        foreach($courses as $i=>$course){
-                            if(sizeof($course->sessions) == 0) {
-            //                    unset($rearrange[$i]);
-                            } else {
-                                foreach ($course->sessions as $j => $session) {
-                                    if (sizeof($session->students) == 0) {
-            //                            unset($rearrange[$i]->sessions[$j]);
-                                    } else {
-            //                            unset($rearrange[$i]->sessions[$j]->students);
-                                    }
-                                }
-                            }
-                        }
-            */
         }
         return array('status' => $status, 'data' => $courses);
     }
@@ -160,11 +142,10 @@ class StudentController extends Controller
         }
         $session = Session::with(['assignments' => function ($query) use ($userAuth) {
             $query->where('student_id', '=', $userAuth->id);
-        }])->get();
+        },'course', 'course.department', 'professor'])->get();
         $status = 404;
         if (sizeof($session) > 0) {
             $status = 200;
-            $session->load('course', 'course.department', 'professor');
         }
         return array('status' => $status, 'data' => $session);
     }
