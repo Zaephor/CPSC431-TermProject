@@ -32,6 +32,7 @@ There are 2000 student accounts, 100 faculty accounts, and 10 admin accounts. Al
 
 ## Installing on Dokku
 Assumes you already have a server setup and your current system is able to push to it
+
 1. git clone https://github.com/Zaephor/CPSC431-TermProject.git
 2. cd CPSC431-TermProject
 3. git remote add dokku dokku@<yourserver.com>:cpsc431
@@ -43,6 +44,7 @@ Assumes you already have a server setup and your current system is able to push 
 
 ## Installing on XAMPP(Technically untested)
 (Basically we need to change XAMPP's target directory from /htdocs to /htdocs/public)
+
 1. Download https://github.com/Zaephor/CPSC431-TermProject/archive/master.zip
 2. Extract all files to XAMPP root directory(htdocs?)
 3. Install the sql file in /db to mysql(command line is advised, this may take a while)
