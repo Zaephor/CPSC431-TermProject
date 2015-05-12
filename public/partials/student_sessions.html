@@ -1,0 +1,37 @@
+<h1 ng-show="error">{{error}} <button type="button" class="btn btn-default" ng-click="getSessions()">Retry</button></h1>
+<div ng-hide="error">
+    <h3>Available Course Sessions</h3>
+    <div class="panel panel-default" ng-repeat="course in courses">
+        <div class="panel-heading">{{course.department.code}} {{course.code}} - {{course.title}}</div>
+        <div class="panel-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-center">Session #</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Room</th>
+                        <th>Professor</th>
+                        <th class="text-center">Enroll</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="session in course.sessions" ng-mouseover="mouseover = true" ng-mouseleave="mouseover = false">
+                        <th scope="row" class="text-center">{{session.id}}</th>
+                        <td>{{session.begins_on}}</td>
+                        <td>{{session.ends_on}}</td>
+                        <td>{{session.room}}</td>
+                        <td><a ng-href="mailto:{{session.professor.email}}">{{session.professor.name}}</a></td>
+                        <td class="text-center">
+                        <div ng-show="mouseover || enrolled">
+                            <button class="btn btn-primary btn-xs" type="button" ng-hide="enrolled" ng-click="enrolled = enroll(session.id, session.course_id)">Enroll</button>
+                            <button class="btn btn-success btn-xs" type="button" ng-show="enrolled">Enrolled</button>
+                        </div>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>  
+            </div>
+       </div>
+</div>

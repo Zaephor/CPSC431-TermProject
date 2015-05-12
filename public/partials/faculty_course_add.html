@@ -1,0 +1,45 @@
+<h1 ng-show="error">{{error}} <button type="button" class="btn btn-default" ng-click="getCourses()">Retry</button></h1>
+<div ng-hide="error">
+    <h3>Course Details</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Course #</th>
+                <th>Course</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Units</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <th scope="row" class="text-center">{{course.id}}</th>
+                <td>{{course.department.code}} {{course.code}}</td>
+                <td>{{course.title}}</td>
+                <td>{{course.description}}</td>
+                <td class="text-center">{{course.unitval}}</td>
+            </tr>
+        </tbody>    
+    </table>
+    <h3>Department Details</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th >Department #</th>
+                <th>Prefix</th>
+                <th>Title</th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <th scope="row"  >{{course.department.id}}</th>
+                <td>{{course.department.code}}</td>
+                <td>{{course.department.title}}</td>
+
+            </tr>
+        </tbody>    
+    </table>
+</div>

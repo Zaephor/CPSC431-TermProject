@@ -1,0 +1,59 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>Add New Course</h3>
+        </div>
+        <div class="col-sm-5">
+            <div class="panel panel-default">
+                <div class="panel-body form-horizontal ">
+                    <form name="new" ng-submit="saved = addCourse()" novalidate>
+                    <div class="form-group">
+                        <label for="concept" class="col-sm-3 control-label">Title</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="concept" name="title" ng-model="course.title">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description" class="col-sm-3 control-label">Description</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="description" name="description" ng-model="course.description">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="status" class="col-sm-3 control-label">Department</label>
+                        <div class="col-sm-9">
+                            <select class="form-control" id="status" name="status" ng-model="course.department">
+                                <option value="{{department.id}}" ng-repeat="department in departments">{{department.title}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="amount" class="col-sm-3 control-label">Number</label>
+                        <div class="col-sm-9">
+                            <input type="number" class="form-control" id="amount" name="number" ng-model="course.number">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="amount" class="col-sm-3 control-label">Units</label>
+                        <div class="col-sm-9">
+                            <input type="number" class="form-control" id="amount" name="number" ng-model="course.units">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-12 text-right">
+                            <button ng-hide="saved" type="submit" class="btn btn-default preview-add-button">
+                            <span class="glyphicon glyphicon-plus"></span> Add
+                            </button>
+                            <button ng-show="saved" class="btn btn-success">
+                            <span class="glyphicon glyphicon-plus"></span> Added!
+                            </button>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+            </div> 
+
+        </div>
+    </div>

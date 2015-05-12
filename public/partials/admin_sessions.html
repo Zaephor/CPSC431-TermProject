@@ -1,0 +1,26 @@
+<h3>Available Course Sessions</h3>
+<div class="panel panel-default" ng-repeat="course in courses">
+    <div class="panel-heading">{{course.department.code}} {{course.code}} - {{course.title}}</div>
+    <div class="panel-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Session #</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Room</th>
+                    <th>Professor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="session in course.sessions">
+                    <th scope="row" class="text-center"><a ng-href="#/admin/session/{{session.id}}">{{session.id}}</a></th>
+                    <td>{{session.begins_on}}</td>
+                    <td>{{session.ends_on}}</td>
+                    <td>{{session.room}}</td>                   
+                    <td><a ng-href="mailto:{{session.professor.email}}">{{session.professor.name}}</a></td>
+                </tr>
+            </tbody>
+        </table>  
+        </div>
+    </div>

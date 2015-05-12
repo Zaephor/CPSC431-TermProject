@@ -1,0 +1,25 @@
+<h1 ng-show="error">{{error}} <button type="button" class="btn btn-default" ng-click="getCourses()">Retry</button></h1>
+<div ng-hide="error">
+    <h3>Available Courses</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Course</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Units</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="course in courses">
+                <th scope="row" class="text-center"><a href="#/admin/course/{{course.id}}">{{course.id}}</a></th>
+                <td>{{course.department.code}} {{course.code}}</td>
+                <td>{{course.title}}</td>
+                <td>{{course.description}}</td>
+                <td class="text-center">{{course.unitval}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <a ng-href="#/admin/courses/add"><button class="btn btn-default"><span class="glyphicon glyphicon-plus"></span>New Course</button></a>     
+</div>
