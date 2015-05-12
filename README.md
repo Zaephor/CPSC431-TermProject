@@ -9,9 +9,9 @@ Hosted for convenience at http://cpsc431.discard.xyz
 ### Logins
 There are 2000 student accounts, 100 faculty accounts, and 10 admin accounts. All passwords are set to "test"
 
-* Student: student<#>@fullerton.edu
-* Faculty: faculty<#>@fullerton.edu
-* Admin: admin<#>@fullerton.edu
+* Student: student[#]@fullerton.edu
+* Faculty: facult[<#]@fullerton.edu
+* Admin: admin[#]@fullerton.edu
 
 ### Admin
 
@@ -36,12 +36,12 @@ Assumes you already have a server setup and your current system is able to push 
 
 1. git clone https://github.com/Zaephor/CPSC431-TermProject.git
 2. cd CPSC431-TermProject
-3. git remote add dokku dokku@<yourserver.com>:cpsc431
+3. git remote add dokku dokku@[yourserver.com]:cpsc431
 4. git push dokku remote
-5. ssh dokku@<yourserver.com> config:set cpsc431 BUILDPACK_URL=https://github.com/heroku/heroku-buildpack-php
-6. ssh dokku@<yourserver.com> mariadb:create cpsc431
-7. ssh dokku@<yourserver.com> mariadb:link cpsc431 cpsc431
-8. ssh dokku@<yourserver.com> run cpsc431 php artisan migrate
+5. ssh dokku@[yourserver.com] config:set cpsc431 BUILDPACK_URL=https://github.com/heroku/heroku-buildpack-php
+6. ssh dokku@[yourserver.com] mariadb:create cpsc431
+7. ssh dokku@[yourserver.com] mariadb:link cpsc431 cpsc431
+8. ssh dokku@[yourserver.com] run cpsc431 php artisan migrate
 
 ## Installing on XAMPP(Technically untested)
 (Basically we need to change XAMPP's target directory from /htdocs to /htdocs/public)
@@ -51,7 +51,7 @@ Assumes you already have a server setup and your current system is able to push 
 3. Install the sql file located in /database to mysql(command line is advised, this may take a while)
 4. Create a file at root called ".env" and enter the following into it:
 
-> DATABASE_URL:   mysql2://<user>:<password>@localhost:3306/cpsc431
+> DATABASE_URL:   mysql2://[user]:[password]@localhost:3306/cpsc431
 
 5. Create .htaccess file at root containing:
 
