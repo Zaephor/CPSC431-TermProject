@@ -47,7 +47,7 @@ Assumes you already have a server setup and your current system is able to push 
 
 1. Download https://github.com/Zaephor/CPSC431-TermProject/archive/master.zip
 2. Extract all files to XAMPP root directory(htdocs?)
-3. Install the sql file in /db to mysql(command line is advised, this may take a while)
+3. Install the sql file located in /database to mysql(command line is advised, this may take a while)
 4. Create a file at root called ".env" and enter the following into it:
 
 > DATABASE_URL:   mysql2://<user>:<password>@localhost:3306/cpsc431
