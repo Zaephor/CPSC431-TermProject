@@ -1,0 +1,33 @@
+<h1 ng-show="error">{{error}} <button type="button" class="btn btn-default" ng-click="getSession()">Retry</button></h1>
+<div ng-hide="error">
+    <h3>Session Details</h3>
+    <div class="panel panel-default">
+        <div class="panel-heading">{{session.course.department.code}} {{session.course.code}} - {{session.course.title}}</div>
+        <div class="panel-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-center">Session #</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Room</th>
+                        <th>Professor</th>
+                        <th>Syllabus</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row" class="text-center">{{session.id}}</th>
+                        <td>{{session.begins_on}}</td>
+                        <td>{{session.ends_on}}</td>
+                        <td>{{session.room}}</td>
+                        <td><a href="mailto:{{session.professor.email}}">{{session.professor.name}}</a></td>
+                        <td><a ng-href="http://cpsc431.discard.xyz/api/student/session/{{session.id}}/syllabus">Download</a></td>                       
+                    </tr>
+                </tbody>
+            </table>  
+            </div>
+       </div>
+</div>
+
+

@@ -1,0 +1,30 @@
+<h1 ng-show="error">{{error}} <button type="button" class="btn btn-default" ng-click="getSessions()">Retry</button></h1>
+<div ng-hide="error">
+    <h3>Currently Teaching</h3>
+    <div class="panel panel-default" ng-repeat="course in courses">
+        <div class="panel-heading"><a ng-href="#/faculty/course/{{course.id}}">{{course.department.code}} {{course.code}} - {{course.title}}</a></div>
+        <div class="panel-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-center">Session #</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Room</th>
+                        <th>Professor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="session in course.sessions" ng-mouseover="mouseover = true" ng-mouseleave="mouseover = false">
+                        <th scope="row" class="text-center"><a ng-href="#/faculty/session/{{session.id}}">{{session.id}}</a></th>
+                        <td>{{session.begins_on}}</td>
+                        <td>{{session.ends_on}}</td>
+                        <td>{{session.room}}</td>
+                        <td><a ng-href="mailto:{{session.professor.name}}">{{session.professor.name}}</a></td>
+                        <td>
+                    </tr>
+                </tbody>
+            </table>  
+            </div>
+       </div>
+</div>

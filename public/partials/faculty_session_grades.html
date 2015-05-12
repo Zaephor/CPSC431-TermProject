@@ -1,0 +1,29 @@
+<h3>Student #{{assignments[0].id}}</h3>
+<div class="panel panel-default">
+    <div class="panel-heading">Assignments</div>
+    <div class="panel-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="text-center">ID #</th>
+                    <th>Assignment</th>
+                    <th>Score</th>
+                    <th>Date Posted</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="assignment in assignments">
+                    <th scope="row" class="text-center">{{assignment.id}}</th>
+                    <td>{{assignment.assignment_code}}</td>
+                    <td>
+                        <div style="width: 125px;">
+                        <div style="float: left; width: 65px;"><input type="number" class="form-control" value="{{assignment.score || 0}}" name="score" ng-model="assignment.score"></div><div style="float:right;"><button ng-hide="graded" type="submit" class="btn btn-sm btn-primary" ng-click="graded = submitScore(assignment.id, assignment.score)">Save</button><button ng-show="graded" class="btn btn-sm btn-success">Saved</button></div></div>
+                        </div>
+                </td>
+                <td>{{assignment.created_at}}</td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+</div>

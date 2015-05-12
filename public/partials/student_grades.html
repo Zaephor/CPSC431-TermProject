@@ -1,0 +1,24 @@
+<h3>Current Grades</h3>
+<div class="panel panel-default" ng-repeat="entry in assignments">
+    <div class="panel-heading">{{entry.course.department.code}} {{entry.course.code}} - {{entry.course.title}}</div>
+    <div class="panel-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="text-center">ID #</th>
+                    <th>Assignment</th>
+                    <th>Score</th>
+                    <th>Date Posted</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="assignment in entry.assignments ">
+                    <th scope="row" class="text-center">{{assignment.id}}</th>
+                    <td>{{assignment.assignment_code}}</td>
+                    <td>{{assignment.score || "Ungraded"}}</td>
+                    <td>{{assignment.created_at}}</td>
+                </tr>
+            </tbody>
+        </table>  
+        </div>
+    </div>
