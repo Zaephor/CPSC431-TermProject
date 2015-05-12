@@ -38,17 +38,17 @@ class DatabaseSeeder extends Seeder
             $student[] = User::create([
 //                'name' => 'Test Student' . $i,
                 'name' => $faker->firstName.' '.$faker->lastName,
-                'email' => 'student' . $i . '@test.com',
+                'email' => 'student' . $i . '@fullerton.edu',
                 'password' => Hash::make('test'),
                 'role' => 'student'
             ]);
         }
-        $professor = array();
+        $faculty = array();
         for ($i = 1; $i <= $count['professor']; $i++) {
-            $professor[] = User::create([
+            $faculty[] = User::create([
 //                'name' => 'Test Professor' . $i,
                 'name' => $faker->name,
-                'email' => 'professor' . $i . '@test.com',
+                'email' => 'faculty' . $i . '@fullerton.edu',
                 'password' => Hash::make('test'),
                 'role' => 'faculty'
             ]);
@@ -58,7 +58,7 @@ class DatabaseSeeder extends Seeder
             $admin[] = User::create([
 //                'name' => 'Test Admin' . $i,
                 'name' => $faker->name,
-                'email' => 'admin' . $i . '@test.com',
+                'email' => 'admin' . $i . '@fullerton.edu',
                 'password' => Hash::make('test'),
                 'role' => 'admin'
             ]);
@@ -117,7 +117,7 @@ class DatabaseSeeder extends Seeder
             $rand['end'] = mt_rand(1430438400, 1433030400);
             $session[] = Session::create([
                 'course_id' => $course[$i % $count['course']]->id,
-                'professor_id' => $professor[$i % $count['professor']]->id,
+                'professor_id' => $faculty[$i % $count['professor']]->id,
                 'begins_on' => date("Y-m-d", $rand['start']),
                 'ends_on' => date("Y-m-d", $rand['end']),
                 'room' => strtoupper($faker->randomLetter).$faker->buildingNumber
