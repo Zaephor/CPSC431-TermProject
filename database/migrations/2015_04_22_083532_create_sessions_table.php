@@ -21,8 +21,8 @@ class CreateSessionsTable extends Migration {
             $table->string('room', 16);
             $table->date('begins_on');
             $table->date('ends_on');
-            $table->foreign('course_id')->references('id')->on('courses');
-            $table->foreign('professor_id')->references('id')->on('users');
+            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
+            $table->foreign('professor_id')->references('id')->on('users')->onDelete('cascade');
 		});
 	}
 

@@ -17,8 +17,8 @@ class SessionUser extends Migration {
             $table->integer('session_id')->unsigned()->index();
             $table->integer('user_id')->unsigned()->index();
             $table->timestamps();
-            $table->foreign('session_id')->references('id')->on('sessions');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('session_id')->references('id')->on('sessions')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->unique(array('session_id','user_id'));
         });
 	}

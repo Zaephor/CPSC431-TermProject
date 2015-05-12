@@ -22,8 +22,8 @@ class CreateAssignmentsTable extends Migration {
             $table->binary('content')->nullable();
             $table->unique(array('session_id','student_id','assignment_code'));
             $table->float('score')->nullable()->default(null);
-            $table->foreign('session_id')->references('id')->on('sessions');
-            $table->foreign('student_id')->references('id')->on('users');
+            $table->foreign('session_id')->references('id')->on('sessions')->onDelete('cascade');
+            $table->foreign('student_id')->references('id')->on('users')->onDelete('cascade');
 		});
 	}
 

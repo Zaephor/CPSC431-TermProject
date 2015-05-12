@@ -22,7 +22,7 @@ class CreateCoursesTable extends Migration {
             $table->integer('code')->unsigned();
             $table->integer('unitval')->unsigned();
             $table->unique(array('department_id','code'));
-            $table->foreign('department_id')->references('id')->on('departments');
+            $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
 		});
 	}
 
